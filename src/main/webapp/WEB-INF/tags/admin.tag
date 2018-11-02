@@ -27,6 +27,12 @@
 		<div class="main_container">
 			<jsp:invoke fragment="navigation" />
 			<div class="right_col" role="main">
+				<div></div>
+				<c:if test="${alertMess !=null }">
+					<div
+						class="alert ${alertType } hide col-sm-2 text-center pull-right"
+						id="alertMess">${alertMess }</div>
+				</c:if>
 				<jsp:doBody />
 			</div>
 			<footer>
@@ -44,5 +50,11 @@
 	<!-- Custom Theme Scripts -->
 	<script src='<c:url value="/resources/admin/build/js/custom.min.js"/>'></script>
 	<jsp:invoke fragment="customjs" />
+	<script type="text/javascript">
+		$(function() {
+			$('#alertMess').removeClass('hide');
+			$('#alertMess').delay(1000).slideUp(500);
+		});
+	</script>
 </body>
 </html>

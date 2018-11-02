@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 	@GetMapping
 	public String home(HttpSession session) {
-		
-		if (session.getAttribute("userSession") != null) {
-			return "admin/home";
+
+		if (session.getAttribute("userSession") == null) {
+			return "redirect:/admin/login";
 		}
-		return "redirect:/admin/login";
+		return "admin/home";
 	}
 }
