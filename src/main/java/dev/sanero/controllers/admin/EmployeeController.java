@@ -43,8 +43,8 @@ public class EmployeeController {
 	@ResponseBody
 	@PostMapping(path = "/delete")
 	public String delete(@RequestParam int id) {
-		if (employeeService.delete(id))
-			return "del";
+//		if (employeeService.delete(id))
+//			return "del";
 		return "Emp" + id;
 	}
 
@@ -59,12 +59,37 @@ public class EmployeeController {
 	@PostMapping(path = "/create")
 	public RedirectView create(@ModelAttribute Employee employee, RedirectAttributes attributes) {
 		employee.setCreated_at(new Timestamp(new Date().getTime()));
+		if (employeeService.insert(employee)) {
+			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_SUCCESSFULLY);
+			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
+		} else {
+			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_FAILED);
+			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
+		}
+		return new RedirectView("/Store/admin/employee/1");
+	}
+
+	@GetMapping(path = "/edit/{id}")
+	public String edit(HttpSession session, @PathVariable int id, ModelMap model) {
+		if (session.getAttribute("userSession") == null) {
+			return "redirect:/admin/login";
+		}
+		model.addAttribute("emp", employeeService.getEmployeeById(id));
+		return "admin/employee/edit";
+	}
+
+	@PostMapping(path = "/edit")
+	public RedirectView edit(@ModelAttribute Employee employee, RedirectAttributes attributes) {
+		System.out.println("post edit");
 		System.out.println(employee);
-//		if (employeeService.insert(employee)) {
-//			
-//		}
-		attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_SUCCESSFULLY);
-		attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
+		employee.setUpdated_at(new Timestamp(new Date().getTime()));
+		if (employeeService.update(employee)) {
+			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.EDIT_SUCCESSFULLY);
+			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
+		} else {
+			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.EDIT_FAILED);
+			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
+		}
 		return new RedirectView("/Store/admin/employee/1");
 	}
 }

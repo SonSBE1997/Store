@@ -152,4 +152,17 @@ public class Employee {
 				+ ", phoneNumber=" + phoneNumber + ", address=" + address + ", email=" + email + ", created_at="
 				+ created_at + ", username=" + username + ", password=" + password + "]";
 	}
+
+	public void update(Employee employee) {
+		this.name = employee.name;
+		this.gender = employee.gender;
+		this.address = employee.address;
+		this.email = employee.email;
+		this.dateOfBirth = employee.dateOfBirth;
+		this.phoneNumber = employee.phoneNumber;
+		this.created_at = employee.created_at;
+		this.updated_at = employee.updated_at;
+		this.username = employee.username;
+		this.password = employee.password;
+	}
 }

@@ -91,7 +91,7 @@
 				    		<td>${emp.getUsername() }</td>
 				    		<td>
 				    			<a href="#" class="btn-delete" data-id=${emp.getId() }>Xoá</a>| <a
-									href="#">Sửa</a>
+									href="/Store/admin/employee/edit/${emp.getId()}">Sửa</a>
 				    		</td>
 			    		</tr>
 			    	</c:forEach>

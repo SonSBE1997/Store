@@ -135,8 +135,46 @@ public class EmployeeDAO {
 		if ((Long) session.createQuery("select count(id) from employees e where username = :username")
 				.setParameter("username", employee.getUsername()).uniqueResult() > 0)
 			return false;
-		session.save(employee);
+		int count = (Integer) session.save(employee);
 		session.close();
-		return true;
+		return count > 0;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Employee getEmployeeById(int id) {
+		Employee employee = null;
+		Session session = sessionFactory.openSession();
+		Query<Employee> query = session.createQuery("from employees where id = :id");
+		query.setParameter("id", id);
+		employee = query.uniqueResult();
+		session.close();
+		return employee;
+	}
+
+	@Transactional
+	public boolean update(Employee employee) {
+		Session session = sessionFactory.openSession();
+		// check id unique
+		if ((Long) session.createQuery("select count(id) from employees e where username = :username")
+				.setParameter("username", employee.getUsername()).uniqueResult() > 0) {
+			int id = (Integer) session.createQuery("select id from employees e where username = :username")
+					.setParameter("username", employee.getUsername()).uniqueResult();
+			if (id != employee.getId())
+				return false;
+		}
+
+		// begin update
+		boolean status = false;
+		Transaction transaction = session.beginTransaction();
+		try {
+			session.update(employee);
+			transaction.commit();
+			status = true;
+		} catch (Exception e) {
+			transaction.rollback();
+		}
+		session.close();
+		return status;
 	}
 }

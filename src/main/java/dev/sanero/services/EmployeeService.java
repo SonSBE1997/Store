@@ -45,4 +45,12 @@ public class EmployeeService {
 	public boolean insert(Employee employee) {
 		return employeeDAO.insert(employee);
 	}
+
+	public Employee getEmployeeById(int id) {
+		return employeeDAO.getEmployeeById(id);
+	}
+
+	public boolean update(Employee employee) {
+		return employeeDAO.update(employee);
+	}
 }
