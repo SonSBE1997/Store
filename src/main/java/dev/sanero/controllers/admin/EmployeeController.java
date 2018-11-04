@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import dev.sanero.entities.Employee;
 import dev.sanero.services.EmployeeService;
 import dev.sanero.utils.Helper;
+import dev.sanero.utils.User;
 
 @Controller()
 @RequestMapping(value = "/admin/employee")
@@ -42,7 +43,13 @@ public class EmployeeController {
 
 	@ResponseBody
 	@PostMapping(path = "/delete")
-	public String delete(@RequestParam int id) {
+	public String delete(HttpSession session, @RequestParam int id) {
+		if (session.getAttribute("userSession") != null) {
+			User userLogin = (User) session.getAttribute("userSession");
+			if (userLogin.getId() == id) {
+				return "duplicated";
+			}
+		}
 //		if (employeeService.delete(id))
 //			return "del";
 		return "Emp" + id;

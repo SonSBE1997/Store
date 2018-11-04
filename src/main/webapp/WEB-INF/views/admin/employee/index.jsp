@@ -6,29 +6,35 @@
 <t:admin pageTitle="Nhân viên">
 	<jsp:attribute name="customjs">
 		<script>
-			$('.btn-delete').off('click').on(
-					'click',
-					function(e) {
-						e.preventDefault();
-						var btn = $(this);
-						var id = btn.data('id');
-						var result = confirm("Bạn có muốn xoá nhân viên có mã "
-								+ id + " không?");
-						if (result == true) {
-							$.ajax({
-								url : "/Store/admin/employee/delete",
-								data : {
-									id : id
-								},
-								type : "POST",
-								success : function(response) {
-									if (response == "del") {
-										$("#row" + id).remove();
-									}
+			$('.btn-delete')
+					.off('click')
+					.on(
+							'click',
+							function(e) {
+								e.preventDefault();
+								var btn = $(this);
+								var id = btn.data('id');
+								var result = confirm("Bạn có muốn xoá nhân viên có mã "
+										+ id + " không?");
+								if (result == true) {
+									$
+											.ajax({
+												url : "/Store/admin/employee/delete",
+												data : {
+													id : id
+												},
+												type : "POST",
+												success : function(response) {
+													if (response == "duplicated")
+														alert("Không thể xoá tài khoản đang đăng nhập");
+
+													if (response == "del") {
+														$("#row" + id).remove();
+													}
+												}
+											});
 								}
 							});
-						}
-					});
 		</script>
 	</jsp:attribute>
 	<jsp:attribute name="navigation">
@@ -45,19 +51,9 @@
 						</div>
 					</div>
 				</div>
-				<br />
-				<form action="" class="form-group">
-					<div class="input-group">
-						<input type="text" class="form-control" value="${search}"
-							name="search" placeholder="Nhập để tìm kiếm">
-						<span class="input-group-btn">
-							<input type="submit" value="Tìm Kiếm" class="btn btn-info">
-						</span>
-						<span class="input-group-btn">
-							<a href="/Store/admin/employee/create" class="btn btn-primary">Thêm mới</a>
-						</span>
-					</div>
-				</form>
+				<div class="input-group">
+					<a href="/Store/admin/employee/create" class="btn btn-primary">Thêm mới</a>
+				</div>
 				<table class="table table-striped table-hover table-bordered">
 				<thead>
 				      <tr>

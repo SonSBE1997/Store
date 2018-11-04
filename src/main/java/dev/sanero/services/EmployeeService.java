@@ -18,6 +18,10 @@ public class EmployeeService {
 		return employeeDAO.checkLogin(user);
 	}
 
+	public User getUserInfoByUsername(String username) {
+		return employeeDAO.getUserInfoByUsername(username);
+	}
+
 	public long getTotalEmployeeCount() {
 		return employeeDAO.getTotalEmployeeCount();
 	}

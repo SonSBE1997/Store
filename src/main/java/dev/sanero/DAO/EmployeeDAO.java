@@ -36,6 +36,17 @@ public class EmployeeDAO {
 	}
 
 	@Transactional
+	public User getUserInfoByUsername(String username) {
+		Session session = sessionFactory.openSession();
+		int id = (Integer) session.createQuery("select id from employees where username = :username")
+				.setParameter("username", username).uniqueResult();
+		String name = (String) session.createQuery("select name from employees where username = :username")
+				.setParameter("username", username).uniqueResult();
+		session.close();
+		return new User(id, username, "", name);
+	}
+
+	@Transactional
 	public long getTotalEmployeeCount() {
 		long count = 0;
 		Session session = sessionFactory.openSession();

@@ -5,20 +5,30 @@ public class User {
 	private String username;
 	private String password;
 	private String name;
+	private int id;
 
 	// Constructor
 	public User() {
 		super();
 	}
 
-	public User(String username, String password, String name) {
+	public User(int id, String username, String password, String name) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.name = name;
+		this.id = id;
 	}
 
 	// Getter and setter
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -46,6 +56,6 @@ public class User {
 	// toString
 	@Override
 	public String toString() {
-		return "User [username=" + username + ", password=" + password + ", name=" + name + "]";
+		return "User [username=" + username + ", password=" + password + ", name=" + name + ", id=" + id + "]";
 	}
 }

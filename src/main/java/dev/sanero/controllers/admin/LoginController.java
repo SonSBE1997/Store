@@ -27,7 +27,9 @@ public class LoginController {
 	@PostMapping
 	public String signin(@ModelAttribute User user, ModelMap model) {
 		if (employeeService.checkLogin(user)) {
-			model.addAttribute("userSession", user);
+			User userLogin = employeeService.getUserInfoByUsername(user.getUsername());
+			userLogin.setPassword(user.getPassword());
+			model.addAttribute("userSession", userLogin);
 			return "redirect:/admin";
 		}
 		return "redirect:/admin/login";
