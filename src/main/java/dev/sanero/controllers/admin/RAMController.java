@@ -18,33 +18,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import dev.sanero.entities.Producer;
-import dev.sanero.services.ProducerService;
+import dev.sanero.entities.Ram;
+import dev.sanero.services.RamService;
 import dev.sanero.utils.Helper;
 
 @Controller
-@RequestMapping(value = "/admin/producer")
-public class ProducerController {
+@RequestMapping(value = "/admin/ram")
+public class RAMController {
 	@Autowired
-	ProducerService producerService;
+	RamService ramService;
 
 	@GetMapping("/{page}")
 	public String index(@PathVariable int page, HttpSession session, ModelMap model) {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
-		model.addAttribute("lsProducer", producerService.getListProducerByPage(page, Helper.PAGE_SIZE));
-		model.addAttribute("pageCount", Math.ceil(1.0 * producerService.getProducerCount() / Helper.PAGE_SIZE));
+		model.addAttribute("lsRam", ramService.getListRamByPage(page, Helper.PAGE_SIZE));
+		model.addAttribute("pageCount", Math.ceil(1.0 * ramService.getRamCount() / Helper.PAGE_SIZE));
 		model.addAttribute("currentPage", page);
-		return "admin/producer/index";
+		return "admin/ram/index";
 	}
 
 	@ResponseBody
 	@PostMapping(path = "/delete")
 	public String delete(HttpSession session, @RequestParam int id) {
-		if (producerService.delete(id))
+		if (ramService.delete(id))
 			return "del";
-		return "Producer" + id;
+		return "RAM" + id;
 	}
 
 	@GetMapping(path = "/create")
@@ -52,20 +52,20 @@ public class ProducerController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
-		return "admin/producer/create";
+		return "admin/ram/create";
 	}
 
 	@PostMapping(path = "/create")
-	public RedirectView create(@ModelAttribute Producer producer, RedirectAttributes attributes) {
-		producer.setCreated_at(new Timestamp(new Date().getTime()));
-		if (producerService.insert(producer)) {
+	public RedirectView create(@ModelAttribute Ram ram, RedirectAttributes attributes) {
+		ram.setCreated_at(new Timestamp(new Date().getTime()));
+		if (ramService.insert(ram)) {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_SUCCESSFULLY);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
 		} else {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_FAILED);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
 		}
-		return new RedirectView("/Store/admin/producer/1");
+		return new RedirectView("/Store/admin/ram/1");
 	}
 
 	@GetMapping(path = "/edit/{id}")
@@ -73,20 +73,20 @@ public class ProducerController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
-		model.addAttribute("producer", producerService.getProducerById(id));
-		return "admin/producer/edit";
+		model.addAttribute("ram", ramService.getRamById(id));
+		return "admin/ram/edit";
 	}
 
 	@PostMapping(path = "/edit")
-	public RedirectView edit(@ModelAttribute Producer producer, RedirectAttributes attributes) {
-		producer.setUpdated_at(new Timestamp(new Date().getTime()));
-		if (producerService.update(producer)) {
+	public RedirectView edit(@ModelAttribute Ram ram, RedirectAttributes attributes) {
+		ram.setUpdated_at(new Timestamp(new Date().getTime()));
+		if (ramService.update(ram)) {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.EDIT_SUCCESSFULLY);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
 		} else {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.EDIT_FAILED);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
 		}
-		return new RedirectView("/Store/admin/producer/1");
+		return new RedirectView("/Store/admin/ram/1");
 	}
 }

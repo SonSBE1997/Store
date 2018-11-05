@@ -34,7 +34,7 @@ public class Ram {
 		this.bus = bus;
 	}
 
-	//Getter and setter
+	// Getter and setter
 	public int getId() {
 		return id;
 	}
@@ -82,5 +82,10 @@ public class Ram {
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
 	}
-	
+
+	// toString
+	@Override
+	public String toString() {
+		return "Ram [memoryCapacity=" + memoryCapacity + ", type=" + type + ", bus=" + bus + "]";
+	}
 }

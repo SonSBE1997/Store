@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<t:admin pageTitle="Nhân viên">
+<t:admin pageTitle="Khách hàng">
 	<jsp:attribute name="navigation">
 		<%@include file="../navigation.jsp"%>
 		<%@include file="../top.jsp"%>

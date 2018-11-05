@@ -26,8 +26,11 @@
 							class="fa fa-desktop"></i>Khách hàng</a></li>
 					<li><a href="/Store/admin/producer/1"><i
 							class="fa fa-table"></i> Nhà sản xuất</a></li>
-					<li><a><i class="fa fa-bar-chart-o"></i> Data Presentation</a></li>
-					<li><a><i class="fa fa-clone"></i>Layouts</a></li>
+					<li><a href="/Store/admin/cpu/1"><i
+							class="fa fa-bar-chart-o"></i>CPU</a></li>
+					<li><a href="/Store/admin/ram/1"><i class="fa fa-clone"></i>RAM</a></li>
+					<li><a href="/Store/admin/laptop/1"><i class="fa fa-laptop"></i>Laptop</a></li>
+					<li><a href="/Store/admin/order"><i class="fa fa-database"></i>Hoá đơn</a></li>
 				</ul>
 			</div>
 		</div>

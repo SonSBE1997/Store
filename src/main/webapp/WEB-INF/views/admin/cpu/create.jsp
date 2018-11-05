@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<t:admin pageTitle="Khách hàng">
+<t:admin pageTitle="CPU">
 	<jsp:attribute name="navigation">
 		<%@include file="../navigation.jsp"%>
 		<%@include file="../top.jsp"%>
@@ -13,45 +13,59 @@
 				<div class="dashboard_graph">
 					<div class="row x_title">
 						<div class="col-md-6">
-							<h3>Thêm khách hàng</h3>
+							<h3>Thêm CPU</h3>
 						</div>
 					</div>
 				</div>
 				<br />
 				<form action="" method="POST" accept-charset="UTF-8">
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Họ và tên</label>
+				      <label class="col-sm-2 control-label">Tên CPU</label>
 				      <div class="col-sm-6">
 				        <input type="text" name="name" class="form-control"
 								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Số điện thoại</label>
+				      <label class="col-sm-2 control-label">Socket</label>
 				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="phoneNumber"
+				        <input type="text" name="socket" class="form-control"
 								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Email</label>
+				      <label class="col-sm-2 control-label">Vi xử lý</label>
 				      <div class="col-sm-6">
-				        <input type="email" class="form-control" name="email"
+				        <input type="text" name="processor" class="form-control"
 								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Username</label>
+				      <label class="col-sm-2 control-label">Xung cơ bản (GHz)</label>
 				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="username"
+				        <input type="number" step=0.1 name="speed"
+								class="form-control" required="required">
+				      </div>
+				    </div>
+				    <div class="form-group col-sm-12">
+				      <label class="col-sm-2 control-label">Xung tối đa (GHz)</label>
+				      <div class="col-sm-6">
+				        <input type="number" step=0.1 name="maxSpeed"
+								class="form-control" required="required">
+				      </div>
+				    </div>
+				    <div class="form-group col-sm-12">
+				      <label class="col-sm-2 control-label">Cache (MB)</label>
+				      <div class="col-sm-6">
+				        <input type="number" name="cache" class="form-control"
 								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Password</label>
+				      <label class="col-sm-2 control-label">Tích hợp đồ hoạ</label>
 				      <div class="col-sm-6">
-				        <input type="password" class="form-control" name="password"
-								required="required">
+				        <input type="text" name="integratedGraphic"
+								class="form-control">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
@@ -64,4 +78,4 @@
 			</div>
 		</div>
 	</jsp:body>
-</t:admin> 
+</t:admin>

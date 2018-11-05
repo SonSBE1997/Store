@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<t:admin pageTitle="Khách hàng">
+<t:admin pageTitle="Ram">
 	<jsp:attribute name="navigation">
 		<%@include file="../navigation.jsp"%>
 		<%@include file="../top.jsp"%>
@@ -13,45 +13,41 @@
 				<div class="dashboard_graph">
 					<div class="row x_title">
 						<div class="col-md-6">
-							<h3>Thêm khách hàng</h3>
+							<h3>Thêm Ram mới</h3>
 						</div>
 					</div>
 				</div>
 				<br />
 				<form action="" method="POST" accept-charset="UTF-8">
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Họ và tên</label>
+				      <label class="col-sm-2 control-label">Dung lượng bộ nhớ</label>
 				      <div class="col-sm-6">
-				        <input type="text" name="name" class="form-control"
-								required="required">
+				      	<select class="form-control" name="memoryCapacity">
+					       <c:forTokens items="2,4,8,16,32" delims="," var="capacity">
+				      			<option value="${capacity }">${capacity } GB</option>
+				      		</c:forTokens>
+					  	</select>
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Số điện thoại</label>
+				      <label class="col-sm-2 control-label">Loại RAM</label>
 				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="phoneNumber"
-								required="required">
+				      	<select class="form-control" name="type">
+					      <c:forTokens items="DDR3,DDR3L,DDR4" delims="," var="type">
+				      			<option value="${type }">${type }</option>
+				      		</c:forTokens>
+					  	</select>
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Email</label>
+				      <label class="col-sm-2 control-label">Bus</label>
 				      <div class="col-sm-6">
-				        <input type="email" class="form-control" name="email"
-								required="required">
-				      </div>
-				    </div>
-				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Username</label>
-				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="username"
-								required="required">
-				      </div>
-				    </div>
-				    <div class="form-group col-sm-12">
-				      <label class="col-sm-2 control-label">Password</label>
-				      <div class="col-sm-6">
-				        <input type="password" class="form-control" name="password"
-								required="required">
+				      	<select class="form-control" name="bus">
+					     	<c:forTokens items="1333,1600,2133,2400,2666,3000,3200"
+									delims="," var="bus">
+				      			<option value="${bus }">${bus }</option>
+				      		</c:forTokens>
+					  	</select>
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
@@ -64,4 +60,4 @@
 			</div>
 		</div>
 	</jsp:body>
-</t:admin> 
+</t:admin>

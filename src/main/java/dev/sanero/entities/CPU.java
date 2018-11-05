@@ -16,7 +16,7 @@ public class CPU {
 	private int id;
 	private String name;
 	private String socket;
-	private String core;
+	private String processor; // vi xu ly
 	private double speed;
 	@Column(name = "max_speed")
 	private double maxSpeed;
@@ -25,13 +25,13 @@ public class CPU {
 	private String integratedGraphic;
 	private Timestamp created_at;
 	private Timestamp updated_at;
-	
-	//Constructor
-	public CPU(String name, String socket, String core, double speed) {
+
+	// Constructor
+	public CPU(String name, String socket, String processor, double speed) {
 		super();
 		this.name = name;
 		this.socket = socket;
-		this.core = core;
+		this.processor = processor;
 		this.speed = speed;
 	}
 
@@ -39,7 +39,7 @@ public class CPU {
 		super();
 	}
 
-	//Getter and setter
+	// Getter and setter
 	public int getId() {
 		return id;
 	}
@@ -64,12 +64,12 @@ public class CPU {
 		this.socket = socket;
 	}
 
-	public String getCore() {
-		return core;
+	public String getProcessor() {
+		return processor;
 	}
 
-	public void setCore(String core) {
-		this.core = core;
+	public void setProcessor(String processor) {
+		this.processor = processor;
 	}
 
 	public double getSpeed() {
