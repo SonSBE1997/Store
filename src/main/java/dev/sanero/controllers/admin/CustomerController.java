@@ -18,41 +18,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import dev.sanero.entities.Employee;
-import dev.sanero.services.EmployeeService;
+import dev.sanero.entities.Customer;
+import dev.sanero.services.CustomerService;
 import dev.sanero.utils.Helper;
-import dev.sanero.utils.User;
 
-@Controller()
-@RequestMapping(value = "/admin/employee")
-public class EmployeeController {
+@Controller
+@RequestMapping(value = "/admin/customer")
+public class CustomerController {
 	@Autowired
-	EmployeeService employeeService;
+	CustomerService customerService;
 
-	@GetMapping(path = "/{page}")
-	public String index(HttpSession session, @PathVariable String page, ModelMap model) {
+	@GetMapping("/{page}")
+	public String index(@PathVariable int page, HttpSession session, ModelMap model) {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
-		model.addAttribute("lsEmployee",
-				employeeService.getListEmployeeByPage(Integer.parseInt(page), Helper.PAGE_SIZE));
-		model.addAttribute("pageCount", Math.ceil(1.0 * employeeService.getTotalEmployeeCount() / Helper.PAGE_SIZE));
-		model.addAttribute("currentPage", Integer.parseInt(page));
-		return "admin/employee/index";
+		model.addAttribute("lsCustomer", customerService.getListCustomerByPage(page, Helper.PAGE_SIZE));
+		model.addAttribute("pageCount", Math.ceil(1.0 * customerService.getCustomerCount() / Helper.PAGE_SIZE));
+		model.addAttribute("currentPage", page);
+		return "admin/customer/index";
 	}
 
 	@ResponseBody
 	@PostMapping(path = "/delete")
 	public String delete(HttpSession session, @RequestParam int id) {
-		if (session.getAttribute("userSession") != null) {
-			User userLogin = (User) session.getAttribute("userSession");
-			if (userLogin.getId() == id) {
-				return "duplicated";
-			}
-		}
-		if (employeeService.delete(id))
+		if (customerService.delete(id))
 			return "del";
-		return "Emp" + id;
+		return "Customer" + id;
 	}
 
 	@GetMapping(path = "/create")
@@ -60,20 +52,20 @@ public class EmployeeController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
-		return "admin/employee/create";
+		return "admin/customer/create";
 	}
 
 	@PostMapping(path = "/create")
-	public RedirectView create(@ModelAttribute Employee employee, RedirectAttributes attributes) {
-		employee.setCreated_at(new Timestamp(new Date().getTime()));
-		if (employeeService.insert(employee)) {
+	public RedirectView create(@ModelAttribute Customer customer, RedirectAttributes attributes) {
+		customer.setCreated_at(new Timestamp(new Date().getTime()));
+		if (customerService.insert(customer)) {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_SUCCESSFULLY);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
 		} else {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.ADD_FAILED);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
 		}
-		return new RedirectView("/Store/admin/employee/1");
+		return new RedirectView("/Store/admin/customer/1");
 	}
 
 	@GetMapping(path = "/edit/{id}")
@@ -81,22 +73,20 @@ public class EmployeeController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
-		model.addAttribute("emp", employeeService.getEmployeeById(id));
-		return "admin/employee/edit";
+		model.addAttribute("customer", customerService.getCustomerById(id));
+		return "admin/customer/edit";
 	}
 
 	@PostMapping(path = "/edit")
-	public RedirectView edit(@ModelAttribute Employee employee, RedirectAttributes attributes) {
-		System.out.println("post edit");
-		System.out.println(employee);
-		employee.setUpdated_at(new Timestamp(new Date().getTime()));
-		if (employeeService.update(employee)) {
+	public RedirectView edit(@ModelAttribute Customer customer, RedirectAttributes attributes) {
+		customer.setUpdated_at(new Timestamp(new Date().getTime()));
+		if (customerService.update(customer)) {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.EDIT_SUCCESSFULLY);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_SUCCESS);
 		} else {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.EDIT_FAILED);
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
 		}
-		return new RedirectView("/Store/admin/employee/1");
+		return new RedirectView("/Store/admin/customer/1");
 	}
 }

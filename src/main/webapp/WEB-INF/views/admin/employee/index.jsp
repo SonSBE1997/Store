@@ -17,22 +17,20 @@
 								var result = confirm("Bạn có muốn xoá nhân viên có mã "
 										+ id + " không?");
 								if (result == true) {
-									$
-											.ajax({
-												url : "/Store/admin/employee/delete",
-												data : {
-													id : id
-												},
-												type : "POST",
-												success : function(response) {
-													if (response == "duplicated")
-														alert("Không thể xoá tài khoản đang đăng nhập");
-
-													if (response == "del") {
-														$("#row" + id).remove();
-													}
-												}
-											});
+									$.ajax({
+										url : "/Store/admin/employee/delete",
+										data : {
+											id : id
+										},
+										type : "POST",
+										success : function(response) {
+											if (response == "duplicated")
+												alert("Không thể xoá tài khoản đang đăng nhập");
+											if (response == "del") {
+												$("#row" + id).remove();
+											}
+										}
+									});
 								}
 							});
 		</script>

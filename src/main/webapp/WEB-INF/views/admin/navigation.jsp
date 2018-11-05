@@ -17,12 +17,13 @@
 			<div class="menu_section">
 				<h3>Danh mục</h3>
 				<ul class="nav side-menu">
-					<li><a href="/Store/admin"><i
-							class="fa fa-home"></i>Trang chủ</a></li>
+					<li><a href="/Store/admin"><i class="fa fa-home"></i>Trang
+							chủ</a></li>
 					<li><a href="/Store/admin/employee/1"> <i
 							class="fa fa-edit"></i>Nhân viên
 					</a></li>
-					<li><a><i class="fa fa-desktop"></i> UI Elements</a></li>
+					<li><a href="/Store/admin/customer/1"><i
+							class="fa fa-desktop"></i>Khách hàng</a></li>
 					<li><a><i class="fa fa-table"></i> Tables</a></li>
 					<li><a><i class="fa fa-bar-chart-o"></i> Data Presentation</a></li>
 					<li><a><i class="fa fa-clone"></i>Layouts</a></li>
