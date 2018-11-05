@@ -5,35 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <t:admin pageTitle="Nhân viên">
 	<jsp:attribute name="customjs">
-		<script>
-			$('.btn-delete')
-					.off('click')
-					.on(
-							'click',
-							function(e) {
-								e.preventDefault();
-								var btn = $(this);
-								var id = btn.data('id');
-								var result = confirm("Bạn có muốn xoá nhân viên có mã "
-										+ id + " không?");
-								if (result == true) {
-									$.ajax({
-										url : "/Store/admin/employee/delete",
-										data : {
-											id : id
-										},
-										type : "POST",
-										success : function(response) {
-											if (response == "duplicated")
-												alert("Không thể xoá tài khoản đang đăng nhập");
-											if (response == "del") {
-												$("#row" + id).remove();
-											}
-										}
-									});
-								}
-							});
-		</script>
+		<script src='<c:url value="/resources/admin/custom.js"/>'></script>
 	</jsp:attribute>
 	<jsp:attribute name="navigation">
 		<%@include file="../navigation.jsp"%>
@@ -63,6 +35,7 @@
 				        <td>Địa chỉ</td>
 				        <td>Email</td>
 				        <td>Username</td>
+				        <td>Chức vụ</td>
 				        <td></td>
 				      </tr>
 			    </thead>
@@ -83,6 +56,15 @@
 				    		<td>${emp.getAddress() }</td>
 				    		<td>${emp.getEmail() }</td>
 				    		<td>${emp.getUsername() }</td>
+				    		<td>
+				    			<a href="#" id='role${emp.getId()}' class="btn-role"
+									data-id=${emp.getId() }>
+					    			<c:choose>
+					    				<c:when test="${emp.isRole() }">Quản lý</c:when>
+					    				<c:otherwise>Nhân viên</c:otherwise>
+					    			</c:choose>
+				    			</a>
+				    		</td>
 				    		<td>
 				    			<a href="#" class="btn-delete" data-id=${emp.getId() }>Xoá</a>| <a
 									href="/Store/admin/employee/edit/${emp.getId()}">Sửa</a>

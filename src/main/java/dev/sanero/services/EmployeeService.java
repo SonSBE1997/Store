@@ -57,4 +57,8 @@ public class EmployeeService {
 	public boolean update(Employee employee) {
 		return employeeDAO.update(employee);
 	}
+
+	public boolean changeRole(int id) {
+		return employeeDAO.changeRole(id);
+	}
 }

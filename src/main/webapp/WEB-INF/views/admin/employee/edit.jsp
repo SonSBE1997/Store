@@ -68,6 +68,17 @@
 								required="required" value='${emp.getEmail() }'>
 				      </div>
 				    </div>
+				     <div class="form-group col-sm-12">
+				     	<label class="col-sm-2 control-label">Chức vụ</label>
+				      	<div class="col-sm-6">
+				        	<select name="role" class="form-control">
+				        		<option value="1"
+									<c:if test="${emp.isRole() }">selected</c:if>>Quản lý</option>
+				        		<option value="0"
+									<c:if test="${!emp.isRole() }">selected</c:if>>Nhân viên</option>
+				        	</select>
+				      	</div>
+				    </div>
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Username</label>
 				      <div class="col-sm-6">

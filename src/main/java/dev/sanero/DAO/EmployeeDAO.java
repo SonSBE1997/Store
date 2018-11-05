@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.sanero.entities.Employee;
+import dev.sanero.utils.Common;
 import dev.sanero.utils.User;
 
 @Repository
@@ -29,7 +30,7 @@ public class EmployeeDAO {
 		Query<Object> query = session.createQuery(
 				"Select count(e.id) from employees e where e.username = :username and e.password = :password");
 		query.setParameter("username", user.getUsername());
-		query.setParameter("password", user.getPassword());
+		query.setParameter("password", Common.encryptMD5(user.getPassword()));
 		long count = (Long) query.uniqueResult();
 		session.close();
 		return count > 0;
@@ -146,6 +147,7 @@ public class EmployeeDAO {
 		if ((Long) session.createQuery("select count(id) from employees e where username = :username")
 				.setParameter("username", employee.getUsername()).uniqueResult() > 0)
 			return false;
+		employee.setPassword(Common.encryptMD5(employee.getPassword()));
 		int count = (Integer) session.save(employee);
 		session.close();
 		return count > 0;
@@ -174,7 +176,7 @@ public class EmployeeDAO {
 			if (id != employee.getId())
 				return false;
 		}
-
+		employee.setPassword(Common.encryptMD5(employee.getPassword()));
 		// begin update
 		boolean status = false;
 		Transaction transaction = session.beginTransaction();
@@ -187,5 +189,22 @@ public class EmployeeDAO {
 		}
 		session.close();
 		return status;
+	}
+
+	@Transactional
+	public boolean changeRole(int id) {
+		Session session = sessionFactory.openSession();
+		Employee employee = session.get(Employee.class, id);
+		// begin update
+		Transaction transaction = session.beginTransaction();
+		try {
+			employee.setRole(!employee.isRole());
+			session.update(employee);
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+		}
+		session.close();
+		return employee.isRole();
 	}
 }

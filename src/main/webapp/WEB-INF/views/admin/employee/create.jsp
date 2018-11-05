@@ -22,7 +22,8 @@
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Họ và tên</label>
 				      <div class="col-sm-6">
-				        <input type="text" name="name" class="form-control" required="required">
+				        <input type="text" name="name" class="form-control"
+								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
@@ -37,31 +38,45 @@
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Ngày sinh</label>
 				      <div class="col-sm-6">
-				        <input type="date" class="form-control" name="dateOfBirth" required="required">
+				        <input type="date" class="form-control" name="dateOfBirth"
+								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Số điện thoại</label>
 				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="phoneNumber" required="required">
+				        <input type="text" class="form-control" name="phoneNumber"
+								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Địa chỉ</label>
 				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="address" required="required">
+				        <input type="text" class="form-control" name="address"
+								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Email</label>
 				      <div class="col-sm-6">
-				        <input type="email" class="form-control" name="email" required="required">
+				        <input type="email" class="form-control" name="email"
+								required="required">
 				      </div>
+				    </div>
+				     <div class="form-group col-sm-12">
+				     	<label class="col-sm-2 control-label">Chức vụ</label>
+				      	<div class="col-sm-6">
+				        	<select name="role" class="form-control">
+				        		<option value="1">Quản lý</option>
+				        		<option value="0">Nhân viên</option>
+				        	</select>
+				      	</div>
 				    </div>
 				    <div class="form-group col-sm-12">
 				      <label class="col-sm-2 control-label">Username</label>
 				      <div class="col-sm-6">
-				        <input type="text" class="form-control" name="username" required="required">
+				        <input type="text" class="form-control" name="username"
+								required="required">
 				      </div>
 				    </div>
 				    <div class="form-group col-sm-12">

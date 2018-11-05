@@ -38,6 +38,7 @@ public class Employee {
 
 	@Field(index = Index.YES, analyze = Analyze.YES)
 	private String email;
+	private boolean role;
 	private Timestamp created_at;
 	private Timestamp updated_at;
 
@@ -112,6 +113,14 @@ public class Employee {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isRole() {
+		return role;
+	}
+
+	public void setRole(boolean role) {
+		this.role = role;
 	}
 
 	public Timestamp getCreated_at() {

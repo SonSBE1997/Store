@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.sanero.entities.Customer;
+import dev.sanero.utils.Common;
 
 @Repository
 public class CustomerDAO {
@@ -65,6 +66,7 @@ public class CustomerDAO {
 		if ((Long) session.createQuery("select count(id) from customers where username = :username")
 				.setParameter("username", customer.getUsername()).uniqueResult() > 0)
 			return false;
+		customer.setPassword(Common.encryptMD5(customer.getPassword()));
 		int count = (Integer) session.save(customer);
 		session.close();
 		return count > 0;
@@ -94,6 +96,7 @@ public class CustomerDAO {
 				return false;
 		}
 
+		customer.setPassword(Common.encryptMD5(customer.getPassword()));
 		// begin update
 		boolean status = false;
 		Transaction transaction = session.beginTransaction();

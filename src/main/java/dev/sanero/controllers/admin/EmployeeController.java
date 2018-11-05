@@ -34,6 +34,7 @@ public class EmployeeController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		model.addAttribute("lsEmployee",
 				employeeService.getListEmployeeByPage(Integer.parseInt(page), Helper.PAGE_SIZE));
 		model.addAttribute("pageCount", Math.ceil(1.0 * employeeService.getTotalEmployeeCount() / Helper.PAGE_SIZE));
@@ -56,10 +57,11 @@ public class EmployeeController {
 	}
 
 	@GetMapping(path = "/create")
-	public String create(HttpSession session) {
+	public String create(HttpSession session, ModelMap model) {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		return "admin/employee/create";
 	}
 
@@ -81,6 +83,7 @@ public class EmployeeController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		model.addAttribute("emp", employeeService.getEmployeeById(id));
 		return "admin/employee/edit";
 	}
@@ -98,5 +101,19 @@ public class EmployeeController {
 			attributes.addFlashAttribute(Helper.ALERT_TYPE, Helper.ALERT_DANGER);
 		}
 		return new RedirectView("/Store/admin/employee/1");
+	}
+
+	@ResponseBody
+	@PostMapping(path = "/changeRole")
+	public String changeRole(HttpSession session, @RequestParam int id) {
+		if (session.getAttribute("userSession") != null) {
+			User userLogin = (User) session.getAttribute("userSession");
+			if (userLogin.getId() == id) {
+				return "duplicated";
+			}
+		}
+		if (employeeService.changeRole(id))
+			return "true";
+		return "false";
 	}
 }

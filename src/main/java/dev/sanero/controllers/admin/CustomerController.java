@@ -21,6 +21,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import dev.sanero.entities.Customer;
 import dev.sanero.services.CustomerService;
 import dev.sanero.utils.Helper;
+import dev.sanero.utils.User;
 
 @Controller
 @RequestMapping(value = "/admin/customer")
@@ -33,6 +34,7 @@ public class CustomerController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		model.addAttribute("lsCustomer", customerService.getListCustomerByPage(page, Helper.PAGE_SIZE));
 		model.addAttribute("pageCount", Math.ceil(1.0 * customerService.getCustomerCount() / Helper.PAGE_SIZE));
 		model.addAttribute("currentPage", page);
@@ -41,17 +43,18 @@ public class CustomerController {
 
 	@ResponseBody
 	@PostMapping(path = "/delete")
-	public String delete(HttpSession session, @RequestParam int id) {
+	public String delete(@RequestParam int id) {
 		if (customerService.delete(id))
 			return "del";
 		return "Customer" + id;
 	}
 
 	@GetMapping(path = "/create")
-	public String create(HttpSession session) {
+	public String create(HttpSession session, ModelMap model) {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		return "admin/customer/create";
 	}
 
@@ -73,6 +76,7 @@ public class CustomerController {
 		if (session.getAttribute("userSession") == null) {
 			return "redirect:/admin/login";
 		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		model.addAttribute("customer", customerService.getCustomerById(id));
 		return "admin/customer/edit";
 	}
