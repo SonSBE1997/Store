@@ -24,7 +24,8 @@
 					</a></li>
 					<li><a href="/Store/admin/customer/1"><i
 							class="fa fa-desktop"></i>Khách hàng</a></li>
-					<li><a><i class="fa fa-table"></i> Tables</a></li>
+					<li><a href="/Store/admin/producer/1"><i
+							class="fa fa-table"></i> Nhà sản xuất</a></li>
 					<li><a><i class="fa fa-bar-chart-o"></i> Data Presentation</a></li>
 					<li><a><i class="fa fa-clone"></i>Layouts</a></li>
 				</ul>

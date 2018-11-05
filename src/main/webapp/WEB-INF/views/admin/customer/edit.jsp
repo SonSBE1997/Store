@@ -13,7 +13,7 @@
 				<div class="dashboard_graph">
 					<div class="row x_title">
 						<div class="col-md-6">
-							<h3>Sửa nhân viên</h3>
+							<h3>Sửa thông tin khách hàng</h3>
 						</div>
 					</div>
 				</div>
