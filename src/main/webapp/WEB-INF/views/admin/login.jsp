@@ -22,11 +22,23 @@
 		<div class="login_wrapper">
 			<div class="form login_form">
 				<section class="login_content">
+					<c:choose>
+						<c:when test="${loginMess !=null}">
+							<div class="text-danger center hide" id="loginMess">
+								<h4>${loginMess }</h4>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="text-danger center">
+								<h4 id="messContent"></h4>
+							</div>
+						</c:otherwise>
+					</c:choose>
 					<form action="login" method="POST">
 						<h1>Login Form</h1>
 						<div>
-							<input type="text" name="username" class="form-control"
-								placeholder="Username" required="required" />
+							<input id="username" type="text" name="username"
+								class="form-control" placeholder="Username" required="required" />
 						</div>
 						<div>
 							<input type="password" name="password" class="form-control"
@@ -41,5 +53,35 @@
 			</div>
 		</div>
 	</div>
+	<!-- jQuery -->
+	<script
+		src='<c:url value="/resources/admin/vendors/jquery/dist/jquery.min.js"/>'></script>
+	<!-- Bootstrap -->
+	<script
+		src='<c:url value="/resources/admin/vendors/bootstrap/dist/js/bootstrap.min.js"/>'></script>
+	<script type="text/javascript">
+		$(function() {
+			$('#loginMess').removeClass('hide');
+			$('#loginMess').delay(3000).fadeOut();
+			$("#username").change(
+					function() {
+						var username = $(this).val();
+						$.ajax({
+							url : "/Store/admin/login/exist",
+							data : {
+								username : username
+							},
+							type : "POST",
+							success : function(response) {
+								if (response != "")
+									$('#messContent').text(
+											"Tên đăng nhập không tồn tại");
+								else
+									$('#messContent').text("");
+							}
+						});
+					});
+		});
+	</script>
 </body>
 </html>

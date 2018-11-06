@@ -116,4 +116,10 @@ public class EmployeeController {
 			return "true";
 		return "false";
 	}
+
+	@GetMapping(path = "/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("userSession");
+		return "redirect:/admin/login";
+	}
 }

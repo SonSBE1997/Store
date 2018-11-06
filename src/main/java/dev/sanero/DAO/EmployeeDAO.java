@@ -24,6 +24,17 @@ public class EmployeeDAO {
 	SessionFactory sessionFactory;
 
 	@Transactional
+	public boolean checkUsernameExist(String username) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		Query<Object> query = session.createQuery("Select count(e.id) from employees e where e.username = :username");
+		query.setParameter("username", username);
+		long count = (Long) query.uniqueResult();
+		session.close();
+		return count > 0;
+	}
+
+	@Transactional
 	public boolean checkLogin(User user) {
 		Session session = sessionFactory.openSession();
 		@SuppressWarnings("unchecked")

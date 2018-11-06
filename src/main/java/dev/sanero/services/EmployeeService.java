@@ -14,6 +14,10 @@ public class EmployeeService {
 	@Autowired
 	EmployeeDAO employeeDAO;
 
+	public boolean checkUsernameExist(String username) {
+		return employeeDAO.checkUsernameExist(username);
+	}
+
 	public boolean checkLogin(User user) {
 		return employeeDAO.checkLogin(user);
 	}
