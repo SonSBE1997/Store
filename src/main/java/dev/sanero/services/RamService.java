@@ -17,6 +17,10 @@ public class RamService {
 		return ramDAO.getRamCount();
 	}
 
+	public List<Ram> getListRam() {
+		return ramDAO.getListRam();
+	}
+
 	public List<Ram> getListRamByPage(int page, int pageSize) {
 		return ramDAO.getListRamByPage(page, pageSize);
 	}

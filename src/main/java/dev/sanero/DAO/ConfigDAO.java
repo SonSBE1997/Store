@@ -11,43 +11,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import dev.sanero.entities.Ram;
+import dev.sanero.entities.LaptopConfig;
 
 @Repository
-public class RamDAO {
+public class ConfigDAO {
 	@Autowired
 	SessionFactory sessionFactory;
 
 	@Transactional
-	public long getRamCount() {
+	public long getConfigCount() {
 		long count;
 		Session session = sessionFactory.openSession();
-		count = (Long) session.createQuery("select count(id) from rams").uniqueResult();
+		count = (Long) session.createQuery("select count(id) from laptop_config").uniqueResult();
 		session.close();
 		return count;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Ram> getListRam() {
-		List<Ram> rams = new ArrayList<Ram>();
+	public List<LaptopConfig> getListConfig() {
+		List<LaptopConfig> configs = new ArrayList<LaptopConfig>();
 		Session session = sessionFactory.openSession();
-		rams = session.createQuery("from rams").getResultList();
+		Query<LaptopConfig> query = session.createQuery("from laptop_config");
+		configs = query.getResultList();
 		session.close();
-		return rams;
+		return configs;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Ram> getListRamByPage(int page, int pageSize) {
-		List<Ram> rams = new ArrayList<Ram>();
+	public List<LaptopConfig> getListConfigByPage(int page, int pageSize) {
+		List<LaptopConfig> configs = new ArrayList<LaptopConfig>();
 		Session session = sessionFactory.openSession();
-		Query<Ram> query = session.createQuery("from rams");
+		Query<LaptopConfig> query = session.createQuery("from laptop_config");
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
-		rams = query.getResultList();
+		configs = query.getResultList();
 		session.close();
-		return rams;
+		return configs;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -55,14 +56,14 @@ public class RamDAO {
 	public boolean delete(int id) {
 		boolean status = false;
 		Session session = sessionFactory.openSession();
-		Query<Object> query = session.createQuery("delete from rams where id = :id");
+		Query<Object> query = session.createQuery("delete from laptop_config where id = :id");
 		query.setParameter("id", id);
 		Transaction transaction = session.beginTransaction();
 		try {
 			status = query.executeUpdate() > 0;
 			transaction.commit();
 		} catch (Exception e) {
-			System.out.println("delete ram failed. Rollback transaction\r\n" + e.getMessage());
+			System.out.println("delete laptop_config failed. Rollback transaction\r\n" + e.getMessage());
 			transaction.rollback();
 		}
 		session.close();
@@ -70,33 +71,33 @@ public class RamDAO {
 	}
 
 	@Transactional
-	public boolean insert(Ram ram) {
+	public boolean insert(LaptopConfig laptopConfig) {
 		Session session = sessionFactory.openSession();
-		int count = (Integer) session.save(ram);
+		int count = (Integer) session.save(laptopConfig);
 		session.close();
 		return count > 0;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public Ram getRamById(int id) {
-		Ram ram = null;
+	public LaptopConfig getConfigById(int id) {
+		LaptopConfig config = null;
 		Session session = sessionFactory.openSession();
-		Query<Ram> query = session.createQuery("from rams where id = :id");
+		Query<LaptopConfig> query = session.createQuery("from laptop_config where id = :id");
 		query.setParameter("id", id);
-		ram = query.uniqueResult();
+		config = query.uniqueResult();
 		session.close();
-		return ram;
+		return config;
 	}
 
 	@Transactional
-	public boolean update(Ram ram) {
+	public boolean update(LaptopConfig config) {
 		Session session = sessionFactory.openSession();
 		// begin update
 		boolean status = false;
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.update(ram);
+			session.update(config);
 			transaction.commit();
 			status = true;
 		} catch (Exception e) {

@@ -29,15 +29,25 @@ public class CpuDAO {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<CPU> getListCPU() {
+		List<CPU> cpus = new ArrayList<CPU>();
+		Session session = sessionFactory.openSession();
+		cpus = session.createQuery("from cpus").getResultList();
+		session.close();
+		return cpus;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<CPU> getListCPUByPage(int page, int pageSize) {
-		List<CPU> producers = new ArrayList<CPU>();
+		List<CPU> cpus = new ArrayList<CPU>();
 		Session session = sessionFactory.openSession();
 		Query<CPU> query = session.createQuery("from cpus");
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
-		producers = query.getResultList();
+		cpus = query.getResultList();
 		session.close();
-		return producers;
+		return cpus;
 	}
 
 	@SuppressWarnings("unchecked")

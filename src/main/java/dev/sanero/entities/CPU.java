@@ -39,6 +39,10 @@ public class CPU {
 		super();
 	}
 
+	public CPU(int id) {
+		this.id = id;
+	}
+
 	// Getter and setter
 	public int getId() {
 		return id;
@@ -118,5 +122,11 @@ public class CPU {
 
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	// toString
+	@Override
+	public String toString() {
+		return name + ": " + socket + ", " + processor + ", xung nhịp (" + speed + ", " + maxSpeed + ")";
 	}
 }

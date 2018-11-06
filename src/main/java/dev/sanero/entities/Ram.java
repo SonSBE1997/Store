@@ -27,6 +27,10 @@ public class Ram {
 		super();
 	}
 
+	public Ram(int id) {
+		this.id = id;
+	}
+
 	public Ram(int memoryCapacity, String type, int bus) {
 		super();
 		this.memoryCapacity = memoryCapacity;
@@ -86,6 +90,6 @@ public class Ram {
 	// toString
 	@Override
 	public String toString() {
-		return "Ram [memoryCapacity=" + memoryCapacity + ", type=" + type + ", bus=" + bus + "]";
+		return memoryCapacity + " GB, type=" + type + ", bus=" + bus;
 	}
 }

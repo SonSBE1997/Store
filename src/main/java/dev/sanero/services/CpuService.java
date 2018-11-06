@@ -17,6 +17,10 @@ public class CpuService {
 		return cpuDAO.getCPUCount();
 	}
 
+	public List<CPU> getListCPU() {
+		return cpuDAO.getListCPU();
+	}
+
 	public List<CPU> getListCPUByPage(int page, int pageSize) {
 		return cpuDAO.getListCPUByPage(page, pageSize);
 	}

@@ -141,4 +141,11 @@ public class LaptopConfig {
 	public void setRam(Ram ram) {
 		this.ram = ram;
 	}
+
+	// toString
+	@Override
+	public String toString() {
+		return "Ổ cứng: " + disk + ", màn hình: " + screen + ", pin: " + battery + ", NSX: " + producer + ", CPU: "
+				+ cpu + ", RAM: " + ram;
+	}
 }

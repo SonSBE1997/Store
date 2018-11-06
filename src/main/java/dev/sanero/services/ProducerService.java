@@ -17,6 +17,10 @@ public class ProducerService {
 		return producerDAO.getProducerCount();
 	}
 
+	public List<Producer> getListProducer() {
+		return producerDAO.getListProducer();
+	}
+
 	public List<Producer> getListProducerByPage(int page, int pageSize) {
 		return producerDAO.getListProducerByPage(page, pageSize);
 	}

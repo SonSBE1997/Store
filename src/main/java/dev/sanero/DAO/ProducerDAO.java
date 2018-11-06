@@ -29,6 +29,16 @@ public class ProducerDAO {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<Producer> getListProducer() {
+		List<Producer> producers = new ArrayList<Producer>();
+		Session session = sessionFactory.openSession();
+		producers = session.createQuery("from producers").getResultList();
+		session.close();
+		return producers;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Producer> getListProducerByPage(int page, int pageSize) {
 		List<Producer> producers = new ArrayList<Producer>();
 		Session session = sessionFactory.openSession();

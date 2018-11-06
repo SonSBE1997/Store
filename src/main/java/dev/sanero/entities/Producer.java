@@ -22,6 +22,10 @@ public class Producer {
 		super();
 	}
 
+	public Producer(int id) {
+		this.id = id;
+	}
+
 	public Producer(String name) {
 		super();
 		this.name = name;
@@ -66,5 +70,11 @@ public class Producer {
 
 	public void setUpdated_at(Timestamp updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	// toString
+	@Override
+	public String toString() {
+		return name;
 	}
 }

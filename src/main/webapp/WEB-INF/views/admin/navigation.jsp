@@ -29,6 +29,8 @@
 					<li><a href="/Store/admin/cpu/1"><i
 							class="fa fa-bar-chart-o"></i>CPU</a></li>
 					<li><a href="/Store/admin/ram/1"><i class="fa fa-clone"></i>RAM</a></li>
+					<li><a href="/Store/admin/config/1"><i class="fa fa-cog"></i>Cấu
+							hình</a></li>
 					<li><a href="/Store/admin/laptop/1"><i
 							class="fa fa-laptop"></i>Laptop</a></li>
 					<li><a href="/Store/admin/order"><i class="fa fa-database"></i>Hoá
