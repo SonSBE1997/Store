@@ -17,6 +17,7 @@ public class Laptop {
 	private int id;
 	private String name;
 	private int price;
+	private String image;
 	private String accessories;
 	private double weight;
 	private String os;
@@ -55,6 +56,14 @@ public class Laptop {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getAccessories() {
@@ -104,7 +113,7 @@ public class Laptop {
 	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
-	
+
 	public int getQuantity() {
 		return quantity;
 	}
