@@ -64,7 +64,7 @@ public class LaptopController {
 		return "Laptop" + id;
 	}
 
-	@PostMapping(path = "/delete/{id}")
+	@GetMapping(path = "/delete/{id}")
 	public RedirectView delete(@PathVariable int id, RedirectAttributes attributes) {
 		if (laptopService.delete(id)) {
 			attributes.addFlashAttribute(Helper.ALERT_MESS, Helper.DELETE_SUCCESSFULLY);
@@ -82,6 +82,7 @@ public class LaptopController {
 			return "redirect:/admin/login";
 		}
 		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
+		model.addAttribute("lsConfig", configService.getListConfig());
 		return "admin/laptop/create";
 	}
 
@@ -108,6 +109,7 @@ public class LaptopController {
 		}
 		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
 		model.addAttribute("laptop", laptopService.getLaptopById(id));
+		model.addAttribute("lsConfig", configService.getListConfig());
 		return "admin/laptop/edit";
 	}
 
