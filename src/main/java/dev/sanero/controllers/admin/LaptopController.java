@@ -1,8 +1,12 @@
 package dev.sanero.controllers.admin;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -135,5 +141,25 @@ public class LaptopController {
 		if (laptopService.changeHot(id))
 			return "true";
 		return "false";
+	}
+
+	@Autowired
+	ServletContext context;
+
+	@ResponseBody
+	@PostMapping(path = "/uploadFile")
+	public String upload(MultipartHttpServletRequest request) {
+		Iterator<String> names = request.getFileNames();
+		MultipartFile file = request.getFile(names.next());
+		try {
+			file.transferTo(new File(context.getRealPath("/resources/image/") + file.getOriginalFilename()));
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+			return "false";
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "false";
+		}
+		return "true";
 	}
 }

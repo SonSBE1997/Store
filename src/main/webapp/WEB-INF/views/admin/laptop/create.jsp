@@ -20,6 +20,26 @@
 				$('#battery').text(config.data('battery'));
 				$('#dimension').text(config.data('dimension'));
 			})
+
+			$('#image').change(function(e) {
+				var files = e.target.files;
+				var forms = new FormData();
+				forms.append('file', files[0]);
+				$.ajax({
+					url : "/Store/admin/laptop/uploadFile",
+					data : forms,
+					type : "POST",
+					contentType : false,
+					processData : false,
+					enctype : "multipart/form-data",
+					success : function(response) {
+						console.log(response);
+						if (response == "true")
+							$('#imgUpload').attr('src', "/Store/resources/image/" + files[0].name);
+					}
+				});
+
+			})
 		</script>
 	</jsp:attribute>
 	<jsp:body>
@@ -139,9 +159,9 @@
 						</div>   	
 				    </div>
 				    <div class="col-sm-4 col-sm-4 col-xs-4">
-				    	<input id="image" type="file" name="image">
-<%-- 				    	<img alt="" src='<c:url value="/resource/image/"/>' --%>
-<!-- 							height="200px"> -->
+				    	<input id="image" type="file" name="image" accept=".jpg,.png">
+				    	<br/>
+				    	<img alt="" id="imgUpload" src='' height="200px">
 				    </div>
 				    <div class="form-group col-sm-12">
 				    	<div class="col-sm-2"></div>
