@@ -67,14 +67,11 @@ public class LaptopDAO {
 		return count > 0;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Transactional
 	public Laptop getLaptopById(int id) {
 		Laptop laptop = null;
 		Session session = sessionFactory.openSession();
-		Query<Laptop> query = session.createQuery("from laptops where id = :id");
-		query.setParameter("id", id);
-		laptop = query.uniqueResult();
+		laptop = session.find(Laptop.class, id);
 		session.close();
 		return laptop;
 	}
@@ -107,6 +104,7 @@ public class LaptopDAO {
 			session.update(laptop);
 			transaction.commit();
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			transaction.rollback();
 		}
 		session.close();

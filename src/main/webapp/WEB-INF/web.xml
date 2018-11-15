@@ -11,10 +11,10 @@
 	</session-config>
 
 	<!-- ErrorPage -->
-<!-- 	<error-page> -->
-<!-- 		<error-code>404</error-code> -->
-<!-- 		<location>/WEB-INF/views/errorpages/404.jsp</location> -->
-<!-- 	</error-page> -->
+	<!-- <error-page> -->
+	<!-- <error-code>404</error-code> -->
+	<!-- <location>/WEB-INF/views/errorpages/404.jsp</location> -->
+	<!-- </error-page> -->
 
 	<!-- Filter -->
 	<filter>

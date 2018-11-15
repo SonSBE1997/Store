@@ -114,14 +114,18 @@ public class LaptopController {
 			return "redirect:/admin/login";
 		}
 		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
-		model.addAttribute("laptop", laptopService.getLaptopById(id));
+		Laptop laptop = laptopService.getLaptopById(id);
+		model.addAttribute("laptop", laptop);
+		model.addAttribute("lapConfig", laptop.getConfiguration());
 		model.addAttribute("lsConfig", configService.getListConfig());
 		return "admin/laptop/edit";
 	}
 
 	@PostMapping(path = "/edit")
-	public RedirectView edit(@ModelAttribute Laptop laptop, @RequestParam int configId, RedirectAttributes attributes,
-			HttpSession session) {
+	public RedirectView edit(@ModelAttribute Laptop laptop, @RequestParam int configId, @RequestParam String lastImage,
+			RedirectAttributes attributes, HttpSession session) {
+		if (laptop.getImage() == "")
+			laptop.setImage(lastImage);
 		laptop.setConfiguration(configService.getConfigById(configId));
 		laptop.setModified_by(((User) session.getAttribute("userSession")).getId());
 		laptop.setUpdated_at(new Timestamp(new Date().getTime()));
