@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/java/dev/sanero/controllers/admin/BillController.java=UTF-8
 encoding//src/main/java/dev/sanero/controllers/admin/LoginController.java=UTF-8
 encoding//src/main/java/dev/sanero/entities/CPU.java=UTF-8
 encoding//src/main/java/dev/sanero/entities/LaptopConfig.java=UTF-8

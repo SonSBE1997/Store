@@ -33,8 +33,14 @@
 							hình</a></li>
 					<li><a href="/Store/admin/laptop/1"><i
 							class="fa fa-laptop"></i>Laptop</a></li>
-					<li><a href="/Store/admin/order"><i class="fa fa-database"></i>Hoá
-							đơn</a></li>
+					<jsp:useBean id="now" class="java.util.Date" />
+					<li><a><i class="fa fa-database"></i>Hoá đơn <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="/Store/admin/bill/1">Đơn đặt hàng</a></li>
+							<li><a href="/Store/admin/bill/statistic/${now.getYear()+1900 }">Thống
+									kê</a></li>
+						</ul></li>
 				</ul>
 			</div>
 		</div>
