@@ -1,5 +1,6 @@
 package dev.sanero.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,12 @@ public class BillService {
 	@Autowired
 	BillDAO billDAO;
 
-	public int getBillPriceByYear(int year) {
-		return billDAO.getBillPriceByYear(year);
-	}
-
 	public List<Order> getListOrderByPage(int page, int pageSize) {
 		return billDAO.getListOrderByPage(page, pageSize);
+	}
+
+	public List<Order> getListOrderByMonthAndYear(int month, int year) {
+		return billDAO.getListOrderByMonthAndYear(month, year);
 	}
 
 	public long getBillCount() {
@@ -29,4 +30,19 @@ public class BillService {
 		return billDAO.changeStatus(id, userId);
 	}
 
+	public int getBillPriceByYear(int year) {
+		return billDAO.getBillPriceByYear(year);
+	}
+
+	public int getBillPriceByMonthAndYear(int month, int year) {
+		return billDAO.getBillPriceByMonthAndYear(month, year);
+	}
+
+	public List<Integer> getListBillPriceByYear(int year) {
+		List<Integer> lsBillPrice = new ArrayList<Integer>();
+		for (int i = 0; i < 12; i++) {
+			lsBillPrice.add(getBillPriceByMonthAndYear(i + 1, year));
+		}
+		return lsBillPrice;
+	}
 }

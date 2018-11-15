@@ -139,12 +139,12 @@ public class Order {
 		this.customer = customer;
 	}
 
-	public double getTotalBillPrice() {
-		double total = 0.0;
+	public int getTotalBillPrice() {
+		int total = 0;
 		for (OrderDetail orderDetail : lsDetail) {
 			total += orderDetail.getPrice() * orderDetail.getQuantity();
 		}
-		total = total * (100 - this.discount) / 100;
-		return Math.round(total);
+		total = (int) (total * (100 - this.discount) / 100);
+		return total;
 	}
 }

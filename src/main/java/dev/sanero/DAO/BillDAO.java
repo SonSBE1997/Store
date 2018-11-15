@@ -45,6 +45,21 @@ public class BillDAO {
 		return order;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Order> getListOrderByMonthAndYear(int month, int year) {
+		List<Order> order = new ArrayList<Order>();
+		Session session = sessionFactory.openSession();
+//		Query<Order> query = session.createQuery("from orders o where o.orderDate like '" + year + "-" + month + "-%'");
+		Query<Order> query = session
+				.createQuery("from orders o where month(o.orderDate)=:month and year(o.orderDate) = :year");
+		query.setParameter("year", year);
+		query.setParameter("month", month);
+		order = query.getResultList();
+		session.close();
+		return order;
+	}
+
 	@Transactional
 	public boolean changeStatus(int id, int userId) {
 		Session session = sessionFactory.openSession();
@@ -77,7 +92,27 @@ public class BillDAO {
 			total = call.getInt(1);
 			connection.close();
 		} catch (SQLException e) {
-			System.out.println("Error call function");
+			System.out.println("Error call function getBillPriceByYear");
+			e.printStackTrace();
+		}
+		return total;
+	}
+
+	@Transactional
+	public int getBillPriceByMonthAndYear(int month, int year) {
+		int total = 0;
+		try {
+			Connection connection = sessionFactory.getSessionFactoryOptions().getServiceRegistry()
+					.getService(ConnectionProvider.class).getConnection();
+			CallableStatement call = connection.prepareCall("{ ? = call getBillPriceByMonthAndYear(?,?) }");
+			call.registerOutParameter(1, Types.INTEGER);
+			call.setLong(2, month);
+			call.setLong(3, year);
+			call.execute();
+			total = call.getInt(1);
+			connection.close();
+		} catch (SQLException e) {
+			System.out.println("Error call function getBillPriceByMonthAndYear");
 			e.printStackTrace();
 		}
 		return total;

@@ -42,7 +42,11 @@
 					</div>
 				</div>
 				<div class="input-group">
-					<a href="/Store/admin/bill/statistic" class="btn btn-primary">Thống kê</a>
+<%-- 					<jsp:useBean id="now" class="java.util.Date" />   --%>
+					<a
+						href='/Store/admin/bill/statistic/<c:out value="${now.getYear()+1900}" />'
+						class="btn btn-primary">Thống kê</a>
+					
 				</div>
 				<table class="table table-striped table-hover table-bordered">
 				<thead>

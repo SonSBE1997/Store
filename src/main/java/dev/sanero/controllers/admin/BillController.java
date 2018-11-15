@@ -41,4 +41,29 @@ public class BillController {
 			return "true";
 		return "false";
 	}
+
+	@GetMapping("/statistic/{year}")
+	public String statistic(@PathVariable int year, HttpSession session, ModelMap model) {
+		if (session.getAttribute("userSession") == null) {
+			return "redirect:/admin/login";
+		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
+
+		model.addAttribute("currentYear", year);
+		model.addAttribute("lsBillPrice", billService.getListBillPriceByYear(year));
+		model.addAttribute("last", billService.getBillPriceByYear(year - 1));
+		model.addAttribute("lastOfLast", billService.getBillPriceByYear(year - 2));
+		return "admin/bill/statistic";
+	}
+
+	@GetMapping("/detail/{year}/{month}")
+	public String detail(@PathVariable int year, @PathVariable int month, HttpSession session, ModelMap model) {
+		if (session.getAttribute("userSession") == null) {
+			return "redirect:/admin/login";
+		}
+		model.addAttribute("loginName", ((User) session.getAttribute("userSession")).getName());
+		model.addAttribute("date", String.format("tháng %d năm %d", month, year));
+		model.addAttribute("lsOrder", billService.getListOrderByMonthAndYear(month, year));
+		return "admin/bill/detail";
+	}
 }
