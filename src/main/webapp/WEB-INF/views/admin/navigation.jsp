@@ -33,7 +33,7 @@
 							hình</a></li>
 					<li><a href="/Store/admin/laptop/1"><i
 							class="fa fa-laptop"></i>Laptop</a></li>
-					<li><a href="/Store/admin/order"><i class="fa fa-database"></i>Hoá
+					<li><a href="/Store/admin/bill/1"><i class="fa fa-database"></i>Hoá
 							đơn</a></li>
 				</ul>
 			</div>

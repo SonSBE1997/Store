@@ -2,14 +2,19 @@ package dev.sanero.entities;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.springframework.lang.Nullable;
 
 @Entity(name = "orders")
 public class Order {
@@ -22,9 +27,16 @@ public class Order {
 	private double discount;
 	private boolean status;
 	private int created_by;
+	@Nullable
 	private int modified_by;
+	@Nullable
 	private Timestamp created_at;
+	@Nullable
 	private Timestamp updated_at;
+
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "order_id")
+	private Set<OrderDetail> lsDetail;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -127,4 +139,12 @@ public class Order {
 		this.customer = customer;
 	}
 
+	public double getTotalBillPrice() {
+		double total = 0.0;
+		for (OrderDetail orderDetail : lsDetail) {
+			total += orderDetail.getPrice() * orderDetail.getQuantity();
+		}
+		total = total * (100 - this.discount) / 100;
+		return Math.round(total);
+	}
 }
