@@ -69,31 +69,7 @@
 	<script src='<c:url value="/resources/user/js/parallax.min.js" />'></script>
 	<script src='<c:url value="/resources/user/js/mail-script.js" />'></script>
 	<script src='<c:url value="/resources/user/js/main.js" />'></script>
-	<script type="text/javascript">
-		document.getElementById("btnShoppingCart").addEventListener(
-				"click",
-				function(event) {
-					event.preventDefault();
-					document.getElementById("dropdownShoppingCart").classList
-							.toggle("show");
-				})
-
-		// Close the dropdown if the user clicks outside of it
-		window.onclick = function(event) {
-			if (!event.target.matches('.btnShoppingCart')) {
-
-				var dropdowns = document
-						.getElementsByClassName("dropdown-menu");
-				var i;
-				for (i = 0; i < dropdowns.length; i++) {
-					var openDropdown = dropdowns[i];
-					if (openDropdown.classList.contains('show')) {
-						openDropdown.classList.remove('show');
-					}
-				}
-			}
-		}
-	</script>
+	<script src='<c:url value="/resources/user/custom/script.js"/>'></script>
 	<jsp:invoke fragment="customjs"></jsp:invoke>
 </body>
 </html>

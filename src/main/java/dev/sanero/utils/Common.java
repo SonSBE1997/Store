@@ -3,6 +3,12 @@ package dev.sanero.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.ui.ModelMap;
 
 public class Common {
 	public static String encryptMD5(String input) {
@@ -15,6 +21,22 @@ public class Common {
 		} catch (NoSuchAlgorithmException e) {
 			System.out.println(e.getMessage());
 			return input;
+		}
+	}
+
+	public static void checkSessionPageUser(HttpSession session, ModelMap model) {
+		if (session.getAttribute("loginSession") != null) {
+			model.addAttribute("loginName", ((User) session.getAttribute("loginSession")).getName());
+		}
+
+		if (session.getAttribute("shoppingCart") == null) {
+			List<Cart> cart = new ArrayList<Cart>();
+			session.setAttribute("shoppingCart", cart);
+			model.addAttribute("cart", cart);
+		} else {
+			@SuppressWarnings("unchecked")
+			List<Cart> cart = (List<Cart>) session.getAttribute("shoppingCart");
+			model.addAttribute("cart", cart);
 		}
 	}
 }

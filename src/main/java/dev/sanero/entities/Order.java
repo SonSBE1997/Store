@@ -59,6 +59,14 @@ public class Order {
 	}
 
 	// Getter and setter
+	public Set<OrderDetail> getLsDetail() {
+		return lsDetail;
+	}
+
+	public void setLsDetail(Set<OrderDetail> lsDetail) {
+		this.lsDetail = lsDetail;
+	}
+
 	public int getId() {
 		return id;
 	}

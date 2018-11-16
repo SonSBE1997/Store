@@ -7,11 +7,24 @@ import org.springframework.stereotype.Service;
 
 import dev.sanero.DAO.CustomerDAO;
 import dev.sanero.entities.Customer;
+import dev.sanero.utils.User;
 
 @Service
 public class CustomerService {
 	@Autowired
 	CustomerDAO customerDAO;
+
+	public boolean checkUsernameExist(String username) {
+		return customerDAO.checkUsernameExist(username);
+	}
+
+	public boolean checkLogin(User user) {
+		return customerDAO.checkLogin(user);
+	}
+
+	public User getUserInfoByUsername(String username) {
+		return customerDAO.getUserInfoByUsername(username);
+	}
 
 	public long getCustomerCount() {
 		return customerDAO.getCustomerCount();

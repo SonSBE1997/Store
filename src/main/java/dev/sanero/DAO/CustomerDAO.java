@@ -13,11 +13,47 @@ import org.springframework.transaction.annotation.Transactional;
 
 import dev.sanero.entities.Customer;
 import dev.sanero.utils.Common;
+import dev.sanero.utils.User;
 
 @Repository
 public class CustomerDAO {
 	@Autowired
 	SessionFactory sessionFactory;
+
+	@Transactional
+	public boolean checkUsernameExist(String username) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		Query<Object> query = session.createQuery("Select count(c.id) from customers c where c.username = :username");
+		query.setParameter("username", username);
+		long count = (Long) query.uniqueResult();
+		session.close();
+		return count > 0;
+	}
+
+	@Transactional
+	public boolean checkLogin(User user) {
+		Session session = sessionFactory.openSession();
+		@SuppressWarnings("unchecked")
+		Query<Object> query = session.createQuery(
+				"Select count(c.id) from customers c where c.username = :username and c.password = :password");
+		query.setParameter("username", user.getUsername());
+		query.setParameter("password", user.getPassword());
+		long count = (Long) query.uniqueResult();
+		session.close();
+		return count > 0;
+	}
+
+	@Transactional
+	public User getUserInfoByUsername(String username) {
+		Session session = sessionFactory.openSession();
+		int id = (Integer) session.createQuery("select id from customers where username = :username")
+				.setParameter("username", username).uniqueResult();
+		String name = (String) session.createQuery("select name from customers where username = :username")
+				.setParameter("username", username).uniqueResult();
+		session.close();
+		return new User(id, username, "", name);
+	}
 
 	@Transactional
 	public long getCustomerCount() {

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Đăng nhập</title>
 <link
 	href='<c:url value="/resources/admin/vendors/bootstrap/dist/css/bootstrap.min.css"/>'
 	rel="stylesheet">
@@ -45,8 +45,8 @@
 								placeholder="Password" required="required" />
 						</div>
 						<div>
-							<button class="btn btn-default submit">Login</button>
-							<a class="reset_pass" href="#">Forget your password?</a>
+							<button class="btn btn-default submit">Đăng nhập</button>
+							<a class="reset_pass" href="#">Quên mật khẩu?</a>
 						</div>
 					</form>
 				</section>
@@ -67,7 +67,7 @@
 					function() {
 						var username = $(this).val();
 						$.ajax({
-							url : "/Store/admin/login/exist",
+							url : "/Store/login/exist",
 							data : {
 								username : username
 							},
