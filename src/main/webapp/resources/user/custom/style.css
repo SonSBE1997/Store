@@ -1,0 +1,8 @@
+#shoppingCartBadge {
+	font-size: 12px;
+	background: #ff6a00;
+	color: #fff;
+	padding: 0 3px;
+/* 	vertical-align: top; */
+	border-radius: 50px;
+}

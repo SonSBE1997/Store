@@ -5,3 +5,5 @@ encoding//src/main/java/dev/sanero/entities/CPU.java=UTF-8
 encoding//src/main/java/dev/sanero/entities/LaptopConfig.java=UTF-8
 encoding//src/main/java/dev/sanero/utils/Common.java=UTF-8
 encoding//src/main/java/dev/sanero/utils/Helper.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/user/header.jsp=UTF-8
+encoding//src/main/webapp/WEB-INF/views/user/home.jsp=UTF-8
