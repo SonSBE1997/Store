@@ -100,4 +100,12 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	// toString
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email
+				+ ", created_at=" + created_at + ", updated_at=" + updated_at + ", username=" + username + ", password="
+				+ password + "]";
+	}
 }

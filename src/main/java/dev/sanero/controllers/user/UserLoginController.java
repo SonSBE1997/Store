@@ -1,5 +1,8 @@
 package dev.sanero.controllers.user;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import dev.sanero.entities.Customer;
 import dev.sanero.services.CustomerService;
 import dev.sanero.utils.User;
 
@@ -46,6 +50,21 @@ public class UserLoginController {
 			return "";
 		if (!customerService.checkUsernameExist(username))
 			return "notExist";
-		return "";
+		return "exist";
+	}
+
+	@GetMapping("/signup")
+	public String signup() {
+		return "user/signup";
+	}
+
+	@PostMapping("/signup")
+	public String signup(@ModelAttribute Customer customer, ModelMap model) {
+		customer.setCreated_at(new Timestamp(new Date().getTime()));
+		customerService.insert(customer);
+		int id = customerService.getIdByUsername(customer.getUsername());
+		User userLogin = new User(id, customer.getUsername(), customer.getPassword(), customer.getName());
+		model.addAttribute("loginSession", userLogin);
+		return "redirect:/";
 	}
 }

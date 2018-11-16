@@ -73,7 +73,7 @@
 							},
 							type : "POST",
 							success : function(response) {
-								if (response != "")
+								if (response == "notExist")
 									$('#messContent').text(
 											"Tên đăng nhập không tồn tại");
 								else

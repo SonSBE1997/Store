@@ -26,6 +26,10 @@ public class CustomerService {
 		return customerDAO.getUserInfoByUsername(username);
 	}
 
+	public int getIdByUsername(String username) {
+		return customerDAO.getIdByUsername(username);
+	}
+
 	public long getCustomerCount() {
 		return customerDAO.getCustomerCount();
 	}

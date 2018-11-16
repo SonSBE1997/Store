@@ -38,7 +38,7 @@ public class CustomerDAO {
 		Query<Object> query = session.createQuery(
 				"Select count(c.id) from customers c where c.username = :username and c.password = :password");
 		query.setParameter("username", user.getUsername());
-		query.setParameter("password", user.getPassword());
+		query.setParameter("password", Common.encryptMD5(user.getPassword()));
 		long count = (Long) query.uniqueResult();
 		session.close();
 		return count > 0;
@@ -53,6 +53,15 @@ public class CustomerDAO {
 				.setParameter("username", username).uniqueResult();
 		session.close();
 		return new User(id, username, "", name);
+	}
+
+	@Transactional
+	public int getIdByUsername(String username) {
+		Session session = sessionFactory.openSession();
+		int id = (Integer) session.createQuery("select id from customers where username = :username")
+				.setParameter("username", username).uniqueResult();
+		session.close();
+		return id;
 	}
 
 	@Transactional
