@@ -24,3 +24,7 @@ window.onclick = function(event) {
 document.getElementById("login").addEventListener("click", function(event) {
 	event.preventDefault();
 })
+
+document.getElementById("tradeMark").addEventListener("click", function(event) {
+	event.preventDefault();
+})

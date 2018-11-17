@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.sanero.entities.Laptop;
+import dev.sanero.entities.LaptopConfig;
 
 @Repository
 public class LaptopDAO {
@@ -35,6 +36,43 @@ public class LaptopDAO {
 		Query<Laptop> query = session.createQuery("from laptops");
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopByProducerId(int producerId) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<LaptopConfig> query = session.createQuery("from laptop_config where producer_id=:producerId");
+		query.setParameter("producerId", producerId);
+		List<LaptopConfig> configs = query.getResultList();
+		for (LaptopConfig laptopConfig : configs) {
+			laptops.addAll(laptopConfig.getLsLaptop());
+		}
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopIsHot() {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session.createQuery("from laptops where hot=1");
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopIsDiscount() {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session.createQuery("from laptops where discount > 0 ORDER BY discount DESC");
 		laptops = query.getResultList();
 		session.close();
 		return laptops;

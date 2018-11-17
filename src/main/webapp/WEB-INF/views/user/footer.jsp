@@ -15,10 +15,8 @@
 						<script>
 							document.write(new Date().getFullYear());
 						</script>
-						All rights reserved | This template is made with <i
-							class="fa fa-heart-o" aria-hidden="true"></i> by <a
-							href="https://colorlib.com" target="_blank">Colorlib</a>
-						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+						<i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+							href="https://fb.com/SBE347" target="_blank">Sanero</a>
 					</p>
 				</div>
 			</div>
@@ -52,10 +50,9 @@
 					<h6>Follow Us</h6>
 					<p>Let us be social</p>
 					<div class="footer-social d-flex align-items-center">
-						<a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i
-							class="fa fa-twitter"></i></a> <a href="#"><i
-							class="fa fa-dribbble"></i></a> <a href="#"><i
-							class="fa fa-behance"></i></a>
+						<a href="https://fb.com"><i class="fa fa-facebook"></i></a> <a
+							href="https://twitter.com"><i class="fa fa-twitter"></i></a> <a
+							href="https://www.instagram.com"><i class="fa fa-instagram"></i></a>
 					</div>
 				</div>
 			</div>

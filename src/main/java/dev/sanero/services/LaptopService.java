@@ -21,6 +21,18 @@ public class LaptopService {
 		return laptopDAO.getListLaptopByPage(page, pageSize);
 	}
 
+	public List<Laptop> getListLaptopIsHot() {
+		return laptopDAO.getListLaptopIsHot();
+	}
+
+	public List<Laptop> getListLaptopByProducerId(int producerId) {
+		return laptopDAO.getListLaptopByProducerId(producerId);
+	}
+
+	public List<Laptop> getListLaptopIsDiscount() {
+		return laptopDAO.getListLaptopIsDiscount();
+	}
+
 	public boolean delete(int id) {
 		return laptopDAO.delete(id);
 	}

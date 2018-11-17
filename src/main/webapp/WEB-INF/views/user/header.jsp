@@ -12,6 +12,14 @@
 			<nav id="nav-menu-container">
 				<ul class="nav-menu">
 					<li class="menu-active"><a href="/Store">Trang chủ</a></li>
+					<li class="menu-has-children"><a id="tradeMark" href="#">Thương
+							hiệu</a>
+						<ul>
+							<c:forEach items="${lsProducer }" var="producer">
+								<li><a href="/Store/category/${producer.getId()}">${producer.getName() }</a></li>
+							</c:forEach>
+							<li><a href="/Store/laptop">Tất cả sản phẩm</a></li>
+						</ul></li>
 					<li><a href="/Store/aboutUs">Giới thiệu</a></li>
 					<li>
 						<div class="dropdown">

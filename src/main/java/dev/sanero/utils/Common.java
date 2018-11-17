@@ -32,6 +32,7 @@ public class Common {
 		if (session.getAttribute("shoppingCart") == null) {
 			List<Cart> cart = new ArrayList<Cart>();
 			session.setAttribute("shoppingCart", cart);
+			session.setMaxInactiveInterval(900);
 			model.addAttribute("cart", cart);
 		} else {
 			@SuppressWarnings("unchecked")

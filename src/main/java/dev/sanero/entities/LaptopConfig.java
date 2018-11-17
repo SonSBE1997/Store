@@ -1,14 +1,18 @@
 package dev.sanero.entities;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity(name = "laptop_config")
 public class LaptopConfig {
@@ -40,12 +44,24 @@ public class LaptopConfig {
 	@JoinColumn(name = "ram_id")
 	private Ram ram;
 
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "configuration_id")
+	List<Laptop> lsLaptop = new ArrayList<Laptop>();
+
 	// Constructor
 	public LaptopConfig() {
 		super();
 	}
 
 	// Getter and setter
+	public List<Laptop> getLsLaptop() {
+		return lsLaptop;
+	}
+
+	public void setLsLaptop(List<Laptop> lsLaptop) {
+		this.lsLaptop = lsLaptop;
+	}
+
 	public int getId() {
 		return id;
 	}
