@@ -38,9 +38,7 @@ public class Common {
 			session.setMaxInactiveInterval(900);
 			model.addAttribute("cart", cart);
 		} else {
-			@SuppressWarnings("unchecked")
-			List<Cart> cart = (List<Cart>) session.getAttribute("shoppingCart");
-			model.addAttribute("cart", cart);
+			model.addAttribute("cart", session.getAttribute("shoppingCart"));
 		}
 	}
 }

@@ -1,6 +1,8 @@
+<%@ page import="dev.sanero.utils.Cart"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <header id="header" id="home">
 	<div class="container">
 		<div class="row align-items-center justify-content-between d-flex">
@@ -30,15 +32,43 @@
 							<ul class="dropdown-menu" id="dropdownShoppingCart">
 								<c:choose>
 									<c:when test="${cart.size()==0 }">
-										<li>Nothing to show</li>
+										<li>Không có sản phẩm nào</li>
 									</c:when>
 									<c:otherwise>
-										<c:forEach items="cart" var="item">
-											<li>item</li>
+										<c:forEach items="${cart }" var="item">
+											<li class="cartItem">
+												<div>
+													<div>
+														<b>Tên SP:</b> ${item.getName() } <span> <a
+															class="pull-right removeCartItem"
+															href="/Store/shopping-cart/remove/${item.getLaptopId() }">x
+														</a>
+														</span>
+													</div>
+													<div>
+														<b>Đơn giá:</b><span> <fmt:formatNumber
+																type="number" maxFractionDigits="3">
+															${item.getPrice() }
+															</fmt:formatNumber>
+														</span><span> <b>- SL:</b> ${item.getQuantity() }
+														</span>
+													</div>
+													<div>
+														<fmt:setLocale value="vi_VN" scope="session" />
+														<b>Giảm giá:</b> ${item.getDiscount() } % <span
+															class="pull-right"> <b>TT:</b> <fmt:formatNumber
+																type="currency">
+																 ${item.getTotalPrice() }
+														</fmt:formatNumber>
+														</span>
+													</div>
+												</div>
+											</li>
 										</c:forEach>
-										<li></li>
 									</c:otherwise>
 								</c:choose>
+								<li><a href="/Store/shopping-cart" class="goCart">Đi
+										đến giỏ hàng</a></li>
 							</ul>
 						</div>
 					</li>

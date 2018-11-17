@@ -35,7 +35,7 @@
 											<fmt:formatNumber type="currency">${laptop.getPrice() }</fmt:formatNumber>
 										</h6>
 										<a class="text-uppercase primary-btn addCart"
-											data-id="${laptop }" href="#">Thêm vào giỏ hàng</a>
+											href="/Store/shopping-cart/add/${laptop.getId() }">Thêm vào giỏ hàng</a>
 									</div>
 								</div>
 							</div>

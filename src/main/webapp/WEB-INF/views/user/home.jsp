@@ -53,12 +53,14 @@
 										src='<c:url value="/resources/image/${laptopHot.get(i).getImage() }" />'
 										alt="">
 								<div class="desc">
-									<h4>${laptopHot.get(i).getName() } <span><i class="fa fa-star"></i></span></h4>
+									<h4>${laptopHot.get(i).getName() } <span><i
+												class="fa fa-star"></i></span>
+										</h4>
 									<h6>
 										<fmt:formatNumber type="currency">${laptopHot.get(i).getPrice() }</fmt:formatNumber>
 									</h6>
 									<a class="text-uppercase primary-btn addCart"
-											data-id="${laptopHot.get(i) }" href="#">Thêm vào giỏ hàng</a>
+											href="/Store/shopping-cart/add/${laptopHot.get(i).getId() }">Thêm vào giỏ hàng</a>
 								</div>
 							</div>
 						</div>
@@ -112,7 +114,7 @@
 											</fmt:formatNumber>
 										</h6>
 										<a class="text-uppercase primary-btn addCart"
-											data-id="${laptopDiscount.get(i) }" href="#">Thêm vào giỏ hàng</a>
+											href="/Store/shopping-cart/add/${laptopDiscount.get(i).getId() }">Thêm vào giỏ hàng</a>
 									</div>
 								</div>
 							</div>

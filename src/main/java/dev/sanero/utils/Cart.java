@@ -2,9 +2,24 @@ package dev.sanero.utils;
 
 public class Cart {
 	private int laptopId;
+	private String name;
 	private int price;
 	private int quantity;
 	private double discount;
+
+	// Constructor
+	public Cart() {
+		super();
+	}
+
+	public Cart(int laptopId, String name, int price, int quantity, double discount) {
+		super();
+		this.laptopId = laptopId;
+		this.name = name;
+		this.price = price;
+		this.quantity = quantity;
+		this.discount = discount;
+	}
 
 	// Getter and setter
 	public int getLaptopId() {
@@ -13,6 +28,14 @@ public class Cart {
 
 	public void setLaptopId(int laptopId) {
 		this.laptopId = laptopId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public int getPrice() {
@@ -41,12 +64,12 @@ public class Cart {
 
 	// Method
 	public int getTotalPrice() {
-		return this.price * this.quantity;
+		return (int) (this.price * this.quantity * (100 - discount) / 100);
 	}
 
 	// toString
 	@Override
 	public String toString() {
-		return laptopId + ", " + price + ", =" + quantity + ", " + discount;
+		return laptopId + ", " + name + ", " + price + ", " + quantity + ", " + discount;
 	}
 }
