@@ -58,7 +58,7 @@ public class LaptopDAO {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Laptop> getListLaptopIsHot() {
+	public List<Laptop> getListLaptopHot() {
 		List<Laptop> laptops = new ArrayList<Laptop>();
 		Session session = sessionFactory.openSession();
 		Query<Laptop> query = session.createQuery("from laptops where hot=1");
@@ -67,15 +67,59 @@ public class LaptopDAO {
 		return laptops;
 	}
 
+	@Transactional
+	public long getLaptopHotCount() {
+		long count;
+		Session session = sessionFactory.openSession();
+		count = (Long) session.createQuery("select count(id) from laptops where hot=1").uniqueResult();
+		session.close();
+		return count;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Laptop> getListLaptopIsDiscount() {
+	public List<Laptop> getListLaptopHotByPage(int page, int pageSize) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session.createQuery("from laptops where hot=1");
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopDiscount() {
 		List<Laptop> laptops = new ArrayList<Laptop>();
 		Session session = sessionFactory.openSession();
 		Query<Laptop> query = session.createQuery("from laptops where discount > 0 ORDER BY discount DESC");
 		laptops = query.getResultList();
 		session.close();
 		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopDiscountByPage(int page, int pageSize) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session.createQuery("from laptops where discount > 0 ORDER BY discount DESC");
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@Transactional
+	public long getLaptopDiscountCount() {
+		long count = 0;
+		Session session = sessionFactory.openSession();
+		count = (Long) session.createQuery("select count(id) from laptops where discount > 0").uniqueResult();
+		session.close();
+		return count;
 	}
 
 	@SuppressWarnings("unchecked")

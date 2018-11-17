@@ -23,8 +23,8 @@ public class UserHomeController {
 	@GetMapping
 	public String home(HttpSession session, ModelMap model) {
 		Common.checkSessionPageUser(session, model, producerService);
-		model.addAttribute("laptopDiscount", laptopService.getListLaptopIsDiscount());
-		model.addAttribute("laptopHot", laptopService.getListLaptopIsHot());
+		model.addAttribute("laptopDiscount", laptopService.getListLaptopDiscount());
+		model.addAttribute("laptopHot", laptopService.getListLaptopHot());
 
 		return "user/home";
 	}

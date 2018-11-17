@@ -17,4 +17,5 @@ public class Helper {
 	public static String ALERT_TYPE = "alertType";
 
 	public static Integer PAGE_SIZE = 5;
+	public static Integer USER_PAGE_SIZE = 8;
 }

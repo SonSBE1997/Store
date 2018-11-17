@@ -5,7 +5,7 @@
 
 <t:user pageTitle="Trang chủ">
 	<jsp:body>
-		<div id="aboutUs">
+		<div class="aboutUs">
 		</div>
 		<div class="main-wrapper">
 			<!-- Start Generic Area -->

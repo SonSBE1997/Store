@@ -6,18 +6,18 @@
 
 <t:user pageTitle="Trang chủ">
 	<jsp:body>
-		<section class="generic-banner relative">
+		<section class="banner-area" id="home">	
 			<div class="container">
-				<div class="row height align-items-center justify-content-center">
-					<div class="col-lg-10">
-						<div class="generic-banner-content">
-							<h2 class="text-white">The Home Page</h2>
-							<p class="text-white">
-								It won’t be a bigger problem to find one video game lover in your
-								<br> neighbor. Since the introduction of Virtual Game.
-							</p>
-						</div>
-					</div>
+				<div
+					class="row fullscreen d-flex align-items-center justify-content-center"
+					style="height: 657px;">
+					<div class="banner-content col-lg-10">
+						<h5 class="text-white text-uppercase">Now you can feel the Heat</h5>
+						<h1>
+							Smart New Future				
+						</h1>
+						<a href="#" class="primary-btn text-uppercase">Buy Now</a>
+					</div>											
 				</div>
 			</div>
 		</section>
@@ -57,7 +57,8 @@
 									<h6>
 										<fmt:formatNumber type="currency">${laptopHot.get(i).getPrice() }</fmt:formatNumber>
 									</h6>
-									<a class="text-uppercase primary-btn" href="#">Thêm vào giỏ hàng</a>
+									<a class="text-uppercase primary-btn addCart"
+											data-id="${laptopHot.get(i) }" href="#">Thêm vào giỏ hàng</a>
 								</div>
 							</div>
 						</div>
@@ -66,7 +67,7 @@
 				</div>
 				<br />
 				<div>
-					<a href="/Store/category/hot"
+					<a href="/Store/category/hot/1"
 						class="genric-btn primary circle arrow float-right btnSeeAll">Xem tất cả<span
 						class="lnr lnr-arrow-right"></span></a>
 				</div>
@@ -105,7 +106,8 @@
 										<h6>
 											<fmt:formatNumber type="currency">${laptopDiscount.get(i).getPrice() }</fmt:formatNumber>
 										</h6>
-										<a class="text-uppercase primary-btn" href="#">Thêm vào giỏ hàng</a>
+										<a class="text-uppercase primary-btn addCart"
+											data-id="${laptopDiscount.get(i) }" href="#">Thêm vào giỏ hàng</a>
 									</div>
 								</div>
 							</div>
@@ -113,7 +115,7 @@
 					</div>
 					<br />
 					<div>
-						<a href="/Store/category/discount"
+						<a href="/Store/category/discount/1"
 							class="genric-btn primary circle arrow float-right">Xem tất cả<span
 							class="lnr lnr-arrow-right"></span></a>
 					</div>
