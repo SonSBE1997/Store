@@ -10,6 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.ModelMap;
 
+import dev.sanero.services.ProducerService;
+
 public class Common {
 	public static String encryptMD5(String input) {
 		try {
@@ -24,7 +26,8 @@ public class Common {
 		}
 	}
 
-	public static void checkSessionPageUser(HttpSession session, ModelMap model) {
+	public static void checkSessionPageUser(HttpSession session, ModelMap model, ProducerService producerService) {
+		model.addAttribute("lsProducer", producerService.getListProducer());
 		if (session.getAttribute("loginSession") != null) {
 			model.addAttribute("loginName", ((User) session.getAttribute("loginSession")).getName());
 		}

@@ -22,10 +22,10 @@ public class UserHomeController {
 
 	@GetMapping
 	public String home(HttpSession session, ModelMap model) {
-		Common.checkSessionPageUser(session, model);
+		Common.checkSessionPageUser(session, model, producerService);
 		model.addAttribute("laptopDiscount", laptopService.getListLaptopIsDiscount());
 		model.addAttribute("laptopHot", laptopService.getListLaptopIsHot());
-		model.addAttribute("lsProducer", producerService.getListProducer());
+
 		return "user/home";
 	}
 
@@ -34,5 +34,11 @@ public class UserHomeController {
 		session.removeAttribute("loginSession");
 		System.out.println("logout");
 		return "redirect:/";
+	}
+
+	@GetMapping(path = "/aboutUs")
+	public String aboutUs(HttpSession session, ModelMap model) {
+		Common.checkSessionPageUser(session, model, producerService);
+		return "user/aboutus";
 	}
 }
