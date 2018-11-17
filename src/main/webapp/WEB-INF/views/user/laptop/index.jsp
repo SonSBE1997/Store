@@ -15,25 +15,46 @@
 						<div class="row d-flex justify-content-center">
 							<div class="menu-content pb-60 col-lg-10">
 								<div class="title text-center">
-									<h1 class="mb-10 text-black">Sản phẩm bán chạy</h1>
+									<h1 class="mb-10 text-black">Tất cả sản phẩm</h1>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<fmt:setLocale value="vi_VN" scope="session" />
-							<c:forEach items="${lsHot }" var="laptop">
+							<c:forEach items="${lsLaptop }" var="laptop">
 								<div class="col-lg-3 col-md-6">
 								<div class="single-unique-product">
 									<img class="img-fluid"
 										src='<c:url value="/resources/image/${laptop.getImage() }" />'
 										alt="">
 									<div class="desc">
-										<h4>${laptop.getName() }  <span><i
-												class="fa fa-star"></i></span>
+										<h4>${laptop.getName() }  
+											<c:if test="${laptop.isHot() }">
+												<span><i class="fa fa-star"></i></span>
+											</c:if>
 										</h4>
-										<h6>
-											<fmt:formatNumber type="currency">${laptop.getPrice() }</fmt:formatNumber>
-										</h6>
+										<c:choose>
+											<c:when test="${laptop.getDiscount()>0 }">
+												<p class="discount">
+													<fmt:formatNumber type="currency">
+														${laptop.getPrice() }
+														</fmt:formatNumber>
+												</p>
+												<h6>
+													<fmt:formatNumber type="currency">
+													${laptop.getPrice() * (100 - laptop.getDiscount()) / 100 }
+												</fmt:formatNumber>
+												</h6>
+											</c:when>
+											<c:otherwise>
+												<p class="nondiscount"></p>
+												<h6>
+													<fmt:formatNumber type="currency">
+														${laptop.getPrice() }
+													</fmt:formatNumber>
+												</h6>
+											</c:otherwise>
+										</c:choose>
 										<a class="text-uppercase primary-btn addCart"
 											data-id="${laptop }" href="#">Thêm vào giỏ hàng</a>
 									</div>

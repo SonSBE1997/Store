@@ -53,3 +53,13 @@
 	margin-inline-end: 0px;
 	margin: 15px 0px 0px 0px !important;
 }
+
+.nondiscount {
+	height: 22px;
+	margin-block-start: 2.33em;
+	margin-block-end: 2.33em;
+	margin-inline-start: 0px;
+	margin-inline-end: 0px;
+	margin: 15px 0px 0px 0px !important;
+	margin-block-start: 2.33em;
+}

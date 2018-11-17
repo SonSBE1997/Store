@@ -53,7 +53,7 @@
 										src='<c:url value="/resources/image/${laptopHot.get(i).getImage() }" />'
 										alt="">
 								<div class="desc">
-									<h4>${laptopHot.get(i).getName() }</h4>
+									<h4>${laptopHot.get(i).getName() } <span><i class="fa fa-star"></i></span></h4>
 									<h6>
 										<fmt:formatNumber type="currency">${laptopHot.get(i).getPrice() }</fmt:formatNumber>
 									</h6>
@@ -103,8 +103,13 @@
 										alt="">
 									<div class="desc">
 										<h4>${laptopDiscount.get(i).getName() }</h4>
-										<h6>
+										<p class="discount">
 											<fmt:formatNumber type="currency">${laptopDiscount.get(i).getPrice() }</fmt:formatNumber>
+										</p>
+										<h6>
+											<fmt:formatNumber type="currency">
+												${laptopDiscount.get(i).getPrice() * (100 - laptopDiscount.get(i).getDiscount()) / 100 }
+											</fmt:formatNumber>
 										</h6>
 										<a class="text-uppercase primary-btn addCart"
 											data-id="${laptopDiscount.get(i) }" href="#">Thêm vào giỏ hàng</a>
