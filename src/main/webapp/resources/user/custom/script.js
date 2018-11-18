@@ -28,3 +28,28 @@ document.getElementById("login").addEventListener("click", function(event) {
 document.getElementById("tradeMark").addEventListener("click", function(event) {
 	event.preventDefault();
 })
+
+var removes = document.getElementsByClassName('removeCart');
+for (var i = 0; i < removes.length; i++) {
+	removes[i].addEventListener('click', function(event) {
+		event.preventDefault();
+		var request = new XMLHttpRequest();
+		var id = this.getAttribute("data-id");
+		request.onreadystatechange = function() {
+			if (request.readyState === 4 && request.status === 200) {
+				document.getElementById("bageItem" + id).remove();
+				document.getElementById('shoppingCartBadge').innerHTML = request.responseText;
+				if(request.responseText=="0") {
+					var newItem = document.createElement("LI");
+				    var textnode = document.createTextNode("Không có sản phẩm nào");
+				    newItem.appendChild(textnode);
+					var list = document.getElementById('dropdownShoppingCart');
+					list.insertBefore(newItem,list.childNodes[0]);
+				}
+			}
+		}
+
+		request.open('GET', '/Store/shopping-cart/remove?id=' + id);
+		request.send();
+	});
+}

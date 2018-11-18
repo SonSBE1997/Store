@@ -36,13 +36,12 @@
 									</c:when>
 									<c:otherwise>
 										<c:forEach items="${cart }" var="item">
-											<li class="cartItem">
+											<li class="cartItem" id="bageItem${item.getLaptopId() }">
 												<div>
 													<div>
 														<b>Tên SP:</b> ${item.getName() } <span> <a
-															class="pull-right removeCartItem"
-															href="/Store/shopping-cart/remove/${item.getLaptopId() }">x
-														</a>
+															class="pull-right removeCartItem removeCart"
+															data-id="${item.getLaptopId() }" href="">x </a>
 														</span>
 													</div>
 													<div>
@@ -50,16 +49,16 @@
 																type="number" maxFractionDigits="3">
 															${item.getPrice() }
 															</fmt:formatNumber>
-														</span><span> <b>- SL:</b> ${item.getQuantity() }
+														</span><span> <b>- SL:</b> <span
+															id="badgeQuantity${item.getLaptopId() }">${item.getQuantity() }</span>
 														</span>
 													</div>
 													<div>
 														<fmt:setLocale value="vi_VN" scope="session" />
 														<b>Giảm giá:</b> ${item.getDiscount() } % <span
-															class="pull-right"> <b>TT:</b> <fmt:formatNumber
-																type="currency">
-																 ${item.getTotalPrice() }
-														</fmt:formatNumber>
+															class="pull-right"> <b>TT:</b> <span
+															id="badgePrice${item.getLaptopId() }">
+																${item.getTotalPrice() } </span><span>&#8363;</span>
 														</span>
 													</div>
 												</div>

@@ -6,6 +6,7 @@ public class Cart {
 	private int price;
 	private int quantity;
 	private double discount;
+	private String image;
 
 	// Constructor
 	public Cart() {
@@ -22,6 +23,14 @@ public class Cart {
 	}
 
 	// Getter and setter
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public int getLaptopId() {
 		return laptopId;
 	}

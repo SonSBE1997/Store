@@ -6,6 +6,10 @@
 
 <fmt:setLocale value="vi_VN" scope="session" />
 <t:user pageTitle="Bán chạy">
+	<jsp:attribute name="customjs">
+		<script type="text/javascript"
+			src='<c:url value="/resources/user/custom/custom.js"/>'></script>
+	</jsp:attribute>
 	<jsp:body>
 		<div class="aboutUs">
 		</div>
@@ -14,80 +18,111 @@
 				<h1 class="mb-10 mt-5 text-black text-center">Giỏ hàng</h1>
 				<section class="about-generic-area mb-10" id="unique">
 					<br />
-					<div class="container">
+					<div class="container mb-50" id="pageShoppingCart">
 						<c:choose>
 							<c:when test="${cart.size()==0 }">
 								<h3>Không có sản phẩm nào trong giỏ hàng</h3>
 							</c:when>
 							<c:otherwise>
-								<table class="table table-hover table-striped table-hover">
+								<table class="table table-hover table-striped table-hover"
+								id="cartTable">
 								    <thead>
 								      <tr>
-								        <th>Firstname</th>
-								        <th>Lastname</th>
-								        <th>Email</th>
+								        <th></th>
+								        <th>Tên sản phẩm</th>
+								        <th>Đơn giá</th>
+								        <th>Số lượng</th>
+								        <th>Giảm giá</th>
+								        <th>Thành tiền</th>
+								        <th></th>
 								      </tr>
 								    </thead>
 								    <tbody>
-								      <tr>
-								        <td>John</td>
-								        <td>Doe</td>
-								        <td>john@example.com</td>
-								      </tr>
-								      <tr>
-								        <td>Mary</td>
-								        <td>Moe</td>
-								        <td>mary@example.com</td>
-								      </tr>
-								      <tr>
-								        <td>July</td>
-								        <td>Dooley</td>
-								        <td>july@example.com</td>
-								      </tr>
+								    	<c:set var="totalPrice" value="0"
+										target="java.lang.Integer" />
+								     	<c:forEach items="${cart }" var="item">
+							     			<c:set var="totalPrice"
+											value="${totalPrice +  item.getTotalPrice() }"
+											target="java.lang.Integer" />
+								     		<tr id="row${item.getLaptopId() }">
+								     			<td>	
+								     				<img alt="" height="100px"
+												src='<c:url value="/resources/image/${item.getImage() }" />' />
+												</td>
+												<td>${item.getName() }</td>
+												<td>
+													<span><span id="singlePrice${item.getLaptopId() }">${item.getPrice() }</span>
+													<span>&#8363;</span></span>
+												</td>
+												<td>
+													<input class="quantities" type="number"
+												data-id="${item.getLaptopId() }"
+												id="quantity${item.getLaptopId() }"
+												value="${item.getQuantity() }" />
+												</td>
+												<td>
+													<span id="discount${item.getLaptopId() }">${item.getDiscount() }
+													</span> %
+												</td>
+												<td id="price${item.getLaptopId() }">${item.getTotalPrice() }</td>
+												<td>
+													<a class="remove" href="" data-id="${item.getLaptopId() }">x</a>
+												</td>
+								     		</tr>
+								     	</c:forEach>
 								    </tbody>
 								</table>
+								<div class="pull-right">Tổng tiền:
+									<span id="billPrice">
+										${totalPrice }
+									</span>
+									<span>&#8363;</span>
+								</div>
+								<br />
+								<br />
+								<br />
+								<div class="container" id="order">
+									<h3 class="text-center">Thông tin đặt hàng</h3>
+									<form action="#">
+										<div class="mt-10">
+											<input type="text" name="first_name" placeholder="First Name"
+											onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'First Name'" required
+											class="single-input">
+										</div>
+										<div class="mt-10">
+											<input type="text" name="last_name" placeholder="Last Name"
+											onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'Last Name'" required
+											class="single-input">
+										</div>
+										<div class="mt-10">
+											<input type="text" name="last_name" placeholder="Last Name"
+											onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'Last Name'" required
+											class="single-input">
+										</div>
+										<div class="mt-10">
+											<input type="email" name="EMAIL" placeholder="Email address"
+											onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'Email address'" required
+											class="single-input">
+										</div>
+										<div class="input-group-icon mt-10">
+											<div class="icon">
+												<i class="fa fa-thumb-tack" aria-hidden="true"></i>
+											</div>
+											<input id="address" type="text" name="address"
+											placeholder="Address" onfocus="this.placeholder = ''"
+											onblur="this.placeholder = 'Address'" required
+											class="single-input">
+										</div>
+									</form>
+								</div>
 							</c:otherwise>
 						</c:choose>
 					</div>
 				</section>
-				<div class="container mb-50">
-					<h3>Thông tin đặt hàng</h3>
-					<form action="#">
-						<div class="mt-10">
-							<input type="text" name="first_name" placeholder="First Name"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'First Name'" required
-							class="single-input">
-						</div>
-						<div class="mt-10">
-							<input type="text" name="last_name" placeholder="Last Name"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Last Name'" required
-							class="single-input">
-						</div>
-						<div class="mt-10">
-							<input type="text" name="last_name" placeholder="Last Name"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Last Name'" required
-							class="single-input">
-						</div>
-						<div class="mt-10">
-							<input type="email" name="EMAIL" placeholder="Email address"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Email address'" required
-							class="single-input">
-						</div>
-						<div class="input-group-icon mt-10">
-							<div class="icon">
-								<i class="fa fa-thumb-tack" aria-hidden="true"></i>
-							</div>
-							<input type="text" name="address" placeholder="Address"
-							onfocus="this.placeholder = ''"
-							onblur="this.placeholder = 'Address'" required
-							class="single-input">
-						</div>
-					</form>
-				</div>
 			</div>
 	</jsp:body>
 </t:user>
