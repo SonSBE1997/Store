@@ -39,7 +39,7 @@
 						<fmt:setLocale value="vi_VN" scope="session" />
 						<c:choose>
 							<c:when test="${laptopHot.size()<4 }">
-								<c:set var="hotNum" value="${laptopHot.size() }"
+								<c:set var="hotNum" value="${laptopHot.size()-1 }"
 									target="java.lang.Integer" />
 							</c:when>
 							<c:otherwise>
@@ -48,22 +48,23 @@
 						</c:choose>
 						<c:forEach begin="0" end='${hotNum }' var="i">
 							<div class="col-lg-3 col-md-6">
-							<div class="single-unique-product">
-								<img class="img-fluid"
+								<div class="single-unique-product">
+									<img class="img-fluid"
 										src='<c:url value="/resources/image/${laptopHot.get(i).getImage() }" />'
 										alt="">
-								<div class="desc">
-									<h4>${laptopHot.get(i).getName() } <span><i
-												class="fa fa-star"></i></span>
+									<div class="desc">
+										<h4>
+											<a href="/Store/laptop/detail/${laptopHot.get(i).getId() }">${laptopHot.get(i).getName() }</a>
+											<span><i class="fa fa-star star-icon"></i></span>
 										</h4>
-									<h6>
-										<fmt:formatNumber type="currency">${laptopHot.get(i).getPrice() }</fmt:formatNumber>
-									</h6>
-									<a class="text-uppercase primary-btn addCart"
+										<h6>
+											<fmt:formatNumber type="currency">${laptopHot.get(i).getPrice() }</fmt:formatNumber>
+										</h6>
+										<a class="text-uppercase primary-btn addCart"
 											href="/Store/shopping-cart/add/${laptopHot.get(i).getId() }">Thêm vào giỏ hàng</a>
+									</div>
 								</div>
 							</div>
-						</div>
 						</c:forEach>
 					</div>
 				</div>
@@ -90,7 +91,7 @@
 					<div class="row">
 						<c:choose>
 							<c:when test="${laptopDiscount.size()<4 }">
-								<c:set var="discountNum" value="${laptopDiscount.size() }"
+								<c:set var="discountNum" value="${laptopDiscount.size()-1 }"
 									target="java.lang.Integer" />
 							</c:when>
 							<c:otherwise>
@@ -104,7 +105,10 @@
 										src='<c:url value="/resources/image/${laptopDiscount.get(i).getImage() }" />'
 										alt="">
 									<div class="desc">
-										<h4>${laptopDiscount.get(i).getName() }</h4>
+										<h4>
+											<a
+												href="/Store/laptop/detail/${laptopDiscount.get(i).getId() }">${laptopDiscount.get(i).getName() }</a>
+										</h4>
 										<p class="discount">
 											<fmt:formatNumber type="currency">${laptopDiscount.get(i).getPrice() }</fmt:formatNumber>
 										</p>

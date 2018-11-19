@@ -14,6 +14,7 @@
 		<div class="aboutUs">
 		</div>
 		<div class="main-wrapper">
+				<h3 id="notify">${mess }</h3>
 				<!-- Start unique-feature Area -->
 				<h1 class="mb-10 mt-5 text-black text-center">Giỏ hàng</h1>
 				<section class="about-generic-area mb-10" id="unique">
@@ -49,7 +50,9 @@
 								     				<img alt="" height="100px"
 												src='<c:url value="/resources/image/${item.getImage() }" />' />
 												</td>
-												<td>${item.getName() }</td>
+												<td>
+													<a href="/Store/laptop/detail/${item.getLaptopId() }">${item.getName() }</a>
+												</td>
 												<td>
 													<span><span id="singlePrice${item.getLaptopId() }">${item.getPrice() }</span>
 													<span>&#8363;</span></span>
@@ -58,7 +61,7 @@
 													<input class="quantities" type="number"
 												data-id="${item.getLaptopId() }"
 												id="quantity${item.getLaptopId() }"
-												value="${item.getQuantity() }" />
+												value="${item.getQuantity() }" max="2" />
 												</td>
 												<td>
 													<span id="discount${item.getLaptopId() }">${item.getDiscount() }

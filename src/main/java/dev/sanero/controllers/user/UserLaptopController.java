@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dev.sanero.entities.Laptop;
 import dev.sanero.services.LaptopService;
 import dev.sanero.services.ProducerService;
 import dev.sanero.utils.Common;
@@ -29,5 +30,16 @@ public class UserLaptopController {
 		model.addAttribute("pageCount", (int) Math.ceil(1.0 * laptopService.getLaptopCount() / Helper.USER_PAGE_SIZE));
 		model.addAttribute("currentPage", page);
 		return "user/laptop/index";
+	}
+
+	@GetMapping("/detail/{id}")
+	public String detail(@PathVariable int id, HttpSession session, ModelMap model) {
+		Common.checkSessionPageUser(session, model, producerService);
+		Laptop laptop = laptopService.getLaptopById(id);
+		model.addAttribute("laptop", laptop);
+		model.addAttribute("config", laptop.getConfiguration());
+		model.addAttribute("relate",
+				laptopService.getListLaptopByProducerId(laptop.getConfiguration().getProducer().getId()));
+		return "user/laptop/detail";
 	}
 }

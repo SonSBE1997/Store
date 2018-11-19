@@ -28,7 +28,9 @@
 										src='<c:url value="/resources/image/${laptop.getImage() }" />'
 										alt="">
 									<div class="desc">
-										<h4>${laptop.getName() }</h4>
+										<h4>
+											<a href="/Store/laptop/detail/${laptop.getId()}">${laptop.getName() }</a>
+										</h4>
 										<p class="discount">
 											<fmt:formatNumber type="currency">${laptop.getPrice() }</fmt:formatNumber>
 										</p>

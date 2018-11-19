@@ -93,6 +93,35 @@ public class ShoppingCartController {
 		return "redirect:/";
 	}
 
+	@GetMapping(path = "/add/{id}/{quantity}")
+	public String add(@PathVariable int id, @PathVariable int quantity, HttpSession session) {
+		Laptop laptop = laptopService.getLaptopById(id);
+		Cart cardAdd = new Cart(laptop.getId(), laptop.getName(), laptop.getPrice(), quantity, laptop.getDiscount());
+		cardAdd.setImage(laptop.getImage());
+		if (session.getAttribute("shoppingCart") == null) {
+			List<Cart> cart = new ArrayList<Cart>();
+			cart.add(cardAdd);
+			session.setAttribute("shoppingCart", cart);
+			session.setMaxInactiveInterval(900);
+		} else {
+			@SuppressWarnings("unchecked")
+			List<Cart> cart = (List<Cart>) session.getAttribute("shoppingCart");
+			boolean check = false;
+			for (Cart c : cart) {
+				if (c.getLaptopId() == id) {
+					check = true;
+					c.setQuantity(c.getQuantity() + quantity);
+				}
+				if (check)
+					break;
+			}
+			if (!check)
+				cart.add(cardAdd);
+			session.setAttribute("shoppingCart", cart);
+		}
+		return "redirect:/laptop/detail/" + id;
+	}
+
 	@GetMapping(path = "/remove/{id}")
 	public String remove(@PathVariable int id, HttpSession session) {
 		@SuppressWarnings("unchecked")
@@ -152,13 +181,19 @@ public class ShoppingCartController {
 			@SuppressWarnings("unchecked")
 			List<Cart> carts = (List<Cart>) session.getAttribute("shoppingCart");
 			Set<OrderDetail> details = new HashSet<OrderDetail>();
+			String error = "";
 			for (Cart cart : carts) {
 				OrderDetail detail = new OrderDetail();
-				detail.setLaptop(laptopService.getLaptopById(cart.getLaptopId()));
+				Laptop laptop = laptopService.getLaptopById(cart.getLaptopId());
+				detail.setLaptop(laptop);
 				detail.setQuantity(cart.getQuantity());
 				detail.setPrice(cart.getPrice());
 				detail.setCreated_by(1);
 				detail.setCreated_at(new Timestamp(new Date().getTime()));
+				if (laptop.getQuantity() < cart.getQuantity())
+					error += laptop.getName() + " ,";
+				laptop.setQuantity(laptop.getQuantity() - cart.getQuantity());
+				laptopService.update(laptop);
 				details.add(detail);
 			}
 			Order order = new Order();
@@ -169,8 +204,11 @@ public class ShoppingCartController {
 			order.setOrderDate(new java.sql.Date(new Date().getTime()));
 			order.setEmployee(employeeService.getEmployeeById(3));
 			order.setCustomer(customerService.getCustomerById(((User) session.getAttribute("loginSession")).getId()));
-			if (billService.insert(order)) {
+			if (billService.insert(order) && error == "") {
 				session.removeAttribute("shoppingCart");
+				attributes.addFlashAttribute("mess", "Đặt hàng thành công");
+			} else {
+				attributes.addFlashAttribute("mess", "Một số sản phẩm không đủ số lượng: " + error);
 			}
 		} else {
 			attributes.addFlashAttribute("mess", "Bạn phải đăng nhập trước");

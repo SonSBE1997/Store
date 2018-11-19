@@ -78,3 +78,20 @@
 .removeCartItem {
 	padding-top: 0px !important;
 }
+
+#notify {
+	color: red;
+	text-align: center;
+	margin-top: 15px;
+	margin-bottom: -20px;
+}
+
+.star-icon {
+	color: #f3f371;
+	border: 0.5px solid #cccc7c;
+}
+
+.outOfStock {
+	color: red;
+	margin-left: 150px !important;
+}

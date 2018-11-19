@@ -30,7 +30,7 @@
 									<div class="desc">
 										<h4>${laptop.getName() }  
 											<c:if test="${laptop.isHot() }">
-												<span><i class="fa fa-star"></i></span>
+												<span><i class="fa fa-star star-icon"></i></span>
 											</c:if>
 										</h4>
 										<c:choose>

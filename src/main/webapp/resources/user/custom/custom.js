@@ -77,4 +77,11 @@ for (var i = 0; i < quantities.length; i++) {
 	});
 }
 
-
+document.getElementById('buy').addEventListener('click', function(e) {
+	e.preventDefault();
+	var id = this.getAttribute("data-id");
+	var quantity = document.getElementById("buyQuantity").value;
+	console.log(id);
+	console.log(quantity);
+	window.location.href = "/Store/shopping-cart/add/"+id+"/"+quantity;
+});
