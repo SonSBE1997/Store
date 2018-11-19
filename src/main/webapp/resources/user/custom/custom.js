@@ -53,21 +53,16 @@ for (var i = 0; i < quantities.length; i++) {
 					var list = document.getElementById('dropdownShoppingCart');
 					list.insertBefore(newItem,list.childNodes[0]);
 				} else{
-					if(quantity==0) {
-						document.getElementById("row" + id).remove();
-						document.getElementById("bageItem" + id).remove();
-					}else{
-						var price = parseInt(document.getElementById("singlePrice"+ id).innerHTML);
-						var discount = parseInt(document.getElementById("discount"+ id).innerHTML);
-						var newPrice = quantity * (price * (100-discount)/100);
-						var lastPrice = parseInt(result[1]);
-						var totalPrice = parseInt(document.getElementById("billPrice").innerHTML);
-						document.getElementById("price"+ id).innerHTML = newPrice.toFixed(0);
-						document.getElementById("billPrice").innerHTML = (totalPrice-lastPrice+newPrice).toFixed(0);
-						
-						document.getElementById("badgeQuantity"+id).innerHTML = quantity;
-						document.getElementById("badgePrice"+id).innerHTML = newPrice.toFixed(0);
-					}
+					var price = parseInt(document.getElementById("singlePrice"+ id).innerHTML);
+					var discount = parseInt(document.getElementById("discount"+ id).innerHTML);
+					var newPrice = quantity * (price * (100-discount)/100);
+					var lastPrice = parseInt(result[1]);
+					var totalPrice = parseInt(document.getElementById("billPrice").innerHTML);
+					document.getElementById("price"+ id).innerHTML = newPrice.toFixed(0);
+					document.getElementById("billPrice").innerHTML = (totalPrice-lastPrice+newPrice).toFixed(0);
+					
+					document.getElementById("badgeQuantity"+id).innerHTML = quantity;
+					document.getElementById("badgePrice"+id).innerHTML = newPrice.toFixed(0);
 				}
 			}
 		}
@@ -77,11 +72,14 @@ for (var i = 0; i < quantities.length; i++) {
 	});
 }
 
-document.getElementById('buy').addEventListener('click', function(e) {
-	e.preventDefault();
-	var id = this.getAttribute("data-id");
-	var quantity = document.getElementById("buyQuantity").value;
-	console.log(id);
-	console.log(quantity);
-	window.location.href = "/Store/shopping-cart/add/"+id+"/"+quantity;
-});
+
+
+var buy = document.getElementById('buy');
+
+if(buy!=null) 
+	buy.addEventListener('click', function(e) {
+		e.preventDefault();
+		var id = this.getAttribute("data-id");
+		var quantity = document.getElementById("buyQuantity").value;
+		window.location.href = "/Store/shopping-cart/add/"+id+"/"+quantity;
+	});

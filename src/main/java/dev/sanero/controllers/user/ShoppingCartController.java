@@ -67,6 +67,8 @@ public class ShoppingCartController {
 	@GetMapping(path = "/add/{id}")
 	public String addToCart(@PathVariable int id, HttpSession session) {
 		Laptop laptop = laptopService.getLaptopById(id);
+		if (laptop.getQuantity() < 1)
+			return "redirect:/";
 		Cart cardAdd = new Cart(laptop.getId(), laptop.getName(), laptop.getPrice(), 1, laptop.getDiscount());
 		cardAdd.setImage(laptop.getImage());
 		if (session.getAttribute("shoppingCart") == null) {
@@ -97,6 +99,9 @@ public class ShoppingCartController {
 	public String add(@PathVariable int id, @PathVariable int quantity, HttpSession session) {
 		Laptop laptop = laptopService.getLaptopById(id);
 		Cart cardAdd = new Cart(laptop.getId(), laptop.getName(), laptop.getPrice(), quantity, laptop.getDiscount());
+		if (laptop.getQuantity() < quantity) {
+			cardAdd.setQuantity(laptop.getQuantity());
+		}
 		cardAdd.setImage(laptop.getImage());
 		if (session.getAttribute("shoppingCart") == null) {
 			List<Cart> cart = new ArrayList<Cart>();
@@ -110,7 +115,15 @@ public class ShoppingCartController {
 			for (Cart c : cart) {
 				if (c.getLaptopId() == id) {
 					check = true;
-					c.setQuantity(c.getQuantity() + quantity);
+
+					int newQuantity = c.getQuantity() + quantity;
+					System.out.println(newQuantity);
+					System.out.println(laptop.getQuantity());
+
+					if (laptop.getQuantity() < newQuantity) {
+						c.setQuantity(laptop.getQuantity());
+					} else
+						c.setQuantity(newQuantity);
 				}
 				if (check)
 					break;
@@ -190,10 +203,13 @@ public class ShoppingCartController {
 				detail.setPrice(cart.getPrice());
 				detail.setCreated_by(1);
 				detail.setCreated_at(new Timestamp(new Date().getTime()));
-				if (laptop.getQuantity() < cart.getQuantity())
+				if (laptop.getQuantity() < cart.getQuantity()) {
 					error += laptop.getName() + " ,";
-				laptop.setQuantity(laptop.getQuantity() - cart.getQuantity());
-				laptopService.update(laptop);
+					cart.setQuantity(laptop.getQuantity());
+				} else {
+					laptop.setQuantity(laptop.getQuantity() - cart.getQuantity());
+					laptopService.update(laptop);
+				}
 				details.add(detail);
 			}
 			Order order = new Order();

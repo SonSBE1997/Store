@@ -58,10 +58,10 @@
 													<span>&#8363;</span></span>
 												</td>
 												<td>
-													<input class="quantities" type="number"
+													<input class="quantities" type="number" min="1"
 												data-id="${item.getLaptopId() }"
 												id="quantity${item.getLaptopId() }"
-												value="${item.getQuantity() }" max="2" />
+												value="${item.getQuantity() }" />
 												</td>
 												<td>
 													<span id="discount${item.getLaptopId() }">${item.getDiscount() }
