@@ -45,4 +45,8 @@ public class BillService {
 		}
 		return lsBillPrice;
 	}
+
+	public boolean insert(Order order) {
+		return billDAO.insert(order);
+	}
 }

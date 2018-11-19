@@ -26,6 +26,8 @@ public class Order {
 	private Date orderDate;
 	private double discount;
 	private boolean status;
+	private String address;
+
 	private int created_by;
 	@Nullable
 	private int modified_by;
@@ -65,6 +67,14 @@ public class Order {
 
 	public void setLsDetail(Set<OrderDetail> lsDetail) {
 		this.lsDetail = lsDetail;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public int getId() {

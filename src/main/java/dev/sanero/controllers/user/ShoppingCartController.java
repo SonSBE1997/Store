@@ -1,7 +1,11 @@
 package dev.sanero.controllers.user;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,16 +13,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import dev.sanero.entities.Customer;
 import dev.sanero.entities.Laptop;
+import dev.sanero.entities.Order;
+import dev.sanero.entities.OrderDetail;
+import dev.sanero.services.BillService;
+import dev.sanero.services.CustomerService;
+import dev.sanero.services.EmployeeService;
 import dev.sanero.services.LaptopService;
 import dev.sanero.services.ProducerService;
 import dev.sanero.utils.Cart;
 import dev.sanero.utils.Common;
+import dev.sanero.utils.CustomerInfo;
+import dev.sanero.utils.User;
 
 @Controller
 @RequestMapping(path = "/shopping-cart")
@@ -29,9 +45,22 @@ public class ShoppingCartController {
 	@Autowired
 	LaptopService laptopService;
 
+	@Autowired
+	CustomerService customerService;
+
+	@Autowired
+	EmployeeService employeeService;
+
+	@Autowired
+	BillService billService;
+
 	@GetMapping
 	public String index(HttpSession session, ModelMap model) {
 		Common.checkSessionPageUser(session, model, producerService);
+		if (session.getAttribute("loginSession") != null) {
+			Customer cus = customerService.getCustomerById(((User) session.getAttribute("loginSession")).getId());
+			model.addAttribute("customer", new CustomerInfo(cus.getName(), cus.getPhoneNumber(), cus.getEmail()));
+		}
 		return "user/cart";
 	}
 
@@ -114,5 +143,38 @@ public class ShoppingCartController {
 		}
 		session.setAttribute("shoppingCart", cart);
 		return cart.size() + "-" + price;
+	}
+
+	@PostMapping("/order")
+	public RedirectView order(@ModelAttribute CustomerInfo customer, HttpSession session,
+			RedirectAttributes attributes) {
+		if (session.getAttribute("loginSession") != null) {
+			@SuppressWarnings("unchecked")
+			List<Cart> carts = (List<Cart>) session.getAttribute("shoppingCart");
+			Set<OrderDetail> details = new HashSet<OrderDetail>();
+			for (Cart cart : carts) {
+				OrderDetail detail = new OrderDetail();
+				detail.setLaptop(laptopService.getLaptopById(cart.getLaptopId()));
+				detail.setQuantity(cart.getQuantity());
+				detail.setPrice(cart.getPrice());
+				detail.setCreated_by(1);
+				detail.setCreated_at(new Timestamp(new Date().getTime()));
+				details.add(detail);
+			}
+			Order order = new Order();
+			order.setAddress(customer.getAddress());
+			order.setLsDetail(details);
+			order.setCreated_at(new Timestamp(new Date().getTime()));
+			order.setDiscount(0);
+			order.setOrderDate(new java.sql.Date(new Date().getTime()));
+			order.setEmployee(employeeService.getEmployeeById(3));
+			order.setCustomer(customerService.getCustomerById(((User) session.getAttribute("loginSession")).getId()));
+			if (billService.insert(order)) {
+				session.removeAttribute("shoppingCart");
+			}
+		} else {
+			attributes.addFlashAttribute("mess", "Bạn phải đăng nhập trước");
+		}
+		return new RedirectView("/Store/shopping-cart");
 	}
 }

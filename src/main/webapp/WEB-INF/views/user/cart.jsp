@@ -83,39 +83,38 @@
 								<br />
 								<div class="container" id="order">
 									<h3 class="text-center">Thông tin đặt hàng</h3>
-									<form action="#">
+									
+									<form action="/Store/shopping-cart/order" method="post">
 										<div class="mt-10">
-											<input type="text" name="first_name" placeholder="First Name"
-											onfocus="this.placeholder = ''"
-											onblur="this.placeholder = 'First Name'" required
-											class="single-input">
+											<input type="text" name="name"
+											placeholder="Họ và tên người nhận hàng" class="single-input"
+											required
+											value='<c:if test="${customer!=null }">${customer.getName() }</c:if>'>
 										</div>
 										<div class="mt-10">
-											<input type="text" name="last_name" placeholder="Last Name"
-											onfocus="this.placeholder = ''"
-											onblur="this.placeholder = 'Last Name'" required
-											class="single-input">
+											<input type="text" name="phoneNumber"
+											placeholder="Số điện thoại" class="single-input" required
+											value='<c:if test="${customer!=null }">${customer.getPhoneNumber() }</c:if>'>
 										</div>
 										<div class="mt-10">
-											<input type="text" name="last_name" placeholder="Last Name"
-											onfocus="this.placeholder = ''"
-											onblur="this.placeholder = 'Last Name'" required
-											class="single-input">
-										</div>
-										<div class="mt-10">
-											<input type="email" name="EMAIL" placeholder="Email address"
-											onfocus="this.placeholder = ''"
-											onblur="this.placeholder = 'Email address'" required
-											class="single-input">
+											<input type="email" name="email" placeholder="Email"
+											class="single-input" required
+											value='<c:if test="${customer!=null }">${customer.getEmail() }</c:if>'>
 										</div>
 										<div class="input-group-icon mt-10">
 											<div class="icon">
 												<i class="fa fa-thumb-tack" aria-hidden="true"></i>
 											</div>
 											<input id="address" type="text" name="address"
-											placeholder="Address" onfocus="this.placeholder = ''"
+											placeholder="Địa chỉ giao hàng"
+											onfocus="this.placeholder = ''"
 											onblur="this.placeholder = 'Address'" required
-											class="single-input">
+											class="single-input"
+											value='<c:if test="${customer!=null }">${customer.getAddress() }</c:if>'>
+										</div>
+										<div class="input-group-icon mt-10">
+											<input type="submit" class="genric-btn primary radius"
+											value="Mua ngay" />										
 										</div>
 									</form>
 								</div>

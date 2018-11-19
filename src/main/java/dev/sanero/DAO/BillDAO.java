@@ -117,4 +117,12 @@ public class BillDAO {
 		}
 		return total;
 	}
+
+	@Transactional
+	public boolean insert(Order order) {
+		Session session = sessionFactory.openSession();
+		int count = (Integer) session.save(order);
+		session.close();
+		return count > 0;
+	}
 }
