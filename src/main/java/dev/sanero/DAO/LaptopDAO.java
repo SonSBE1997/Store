@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.sanero.entities.Laptop;
-import dev.sanero.entities.LaptopConfig;
 
 @Repository
 public class LaptopDAO {
@@ -43,17 +42,30 @@ public class LaptopDAO {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
-	public List<Laptop> getListLaptopByProducerId(int producerId) {
+	public List<Laptop> getListLaptopByProducerIdAndPaging(int producerId, int page, int pageSize) {
 		List<Laptop> laptops = new ArrayList<Laptop>();
 		Session session = sessionFactory.openSession();
-		Query<LaptopConfig> query = session.createQuery("from laptop_config where producer_id=:producerId");
+		Query<Laptop> query = session
+				.createQuery("select l from laptops as l " + "left JOIN fetch l.configuration as c "
+						+ "left JOIN fetch c.producer as p " + "where p.id = :producerId");
 		query.setParameter("producerId", producerId);
-		List<LaptopConfig> configs = query.getResultList();
-		for (LaptopConfig laptopConfig : configs) {
-			laptops.addAll(laptopConfig.getLsLaptop());
-		}
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
 		session.close();
 		return laptops;
+	}
+
+	@Transactional
+	public long getLaptopCountByProducerId(int producerId) {
+		long count;
+		Session session = sessionFactory.openSession();
+		count = (Long) session
+				.createQuery("select count(l.id) from laptops as l " + "left JOIN l.configuration as c "
+						+ "left JOIN c.producer as p " + "where p.id = :producerId")
+				.setParameter("producerId", producerId).uniqueResult();
+		session.close();
+		return count;
 	}
 
 	@SuppressWarnings("unchecked")

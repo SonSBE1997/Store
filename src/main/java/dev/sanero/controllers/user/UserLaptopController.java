@@ -38,8 +38,8 @@ public class UserLaptopController {
 		Laptop laptop = laptopService.getLaptopById(id);
 		model.addAttribute("laptop", laptop);
 		model.addAttribute("config", laptop.getConfiguration());
-		model.addAttribute("relate",
-				laptopService.getListLaptopByProducerId(laptop.getConfiguration().getProducer().getId()));
+		model.addAttribute("relate", laptopService
+				.getListLaptopByProducerIdAndPaging(laptop.getConfiguration().getProducer().getId(), 1, 4));
 		return "user/laptop/detail";
 	}
 }

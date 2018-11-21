@@ -25,7 +25,6 @@ public class UserHomeController {
 		Common.checkSessionPageUser(session, model, producerService);
 		model.addAttribute("laptopDiscount", laptopService.getListLaptopDiscount());
 		model.addAttribute("laptopHot", laptopService.getListLaptopHot());
-
 		return "user/home";
 	}
 

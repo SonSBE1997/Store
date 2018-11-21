@@ -45,8 +45,12 @@ public class LaptopService {
 		return laptopDAO.getListLaptopHot();
 	}
 
-	public List<Laptop> getListLaptopByProducerId(int producerId) {
-		return laptopDAO.getListLaptopByProducerId(producerId);
+	public List<Laptop> getListLaptopByProducerIdAndPaging(int producerId, int page, int pageSize) {
+		return laptopDAO.getListLaptopByProducerIdAndPaging(producerId, page, pageSize);
+	}
+
+	public long getLaptopCountByProducerId(int producerId) {
+		return laptopDAO.getLaptopCountByProducerId(producerId);
 	}
 
 	public List<Laptop> getListLaptopDiscount() {

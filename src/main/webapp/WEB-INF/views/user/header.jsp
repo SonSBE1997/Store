@@ -18,7 +18,7 @@
 							hiệu</a>
 						<ul>
 							<c:forEach items="${lsProducer }" var="producer">
-								<li><a href="/Store/category/${producer.getId()}">${producer.getName() }</a></li>
+								<li><a href="/Store/category/${producer.getId()}/1">${producer.getName() }</a></li>
 							</c:forEach>
 							<li><a href="/Store/laptop/1">Tất cả sản phẩm</a></li>
 						</ul></li>

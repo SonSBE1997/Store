@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:user pageTitle="Bán chạy">
+<t:user pageTitle="Giảm giá">
 	<jsp:body>
 		<div class="aboutUs">
 		</div>

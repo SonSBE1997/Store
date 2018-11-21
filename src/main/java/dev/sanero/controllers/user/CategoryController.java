@@ -23,10 +23,16 @@ class CategoryController {
 	@Autowired
 	ProducerService producerService;
 
-	@GetMapping("/{id}")
-	public String index(@PathVariable(name = "id") int producerId, HttpSession session, ModelMap model) {
+	@GetMapping("/{id}/{page}")
+	public String index(@PathVariable(name = "id") int producerId, @PathVariable int page, HttpSession session,
+			ModelMap model) {
 		Common.checkSessionPageUser(session, model, producerService);
-
+		model.addAttribute("lsLaptop",
+				laptopService.getListLaptopByProducerIdAndPaging(producerId, page, Helper.USER_PAGE_SIZE));
+		model.addAttribute("pageCount",
+				(int) Math.ceil(1.0 * laptopService.getLaptopCountByProducerId(producerId) / Helper.USER_PAGE_SIZE));
+		model.addAttribute("currentPage", page);
+		model.addAttribute("producer", producerService.getProducerById(producerId));
 		return "user/category/index";
 	}
 
