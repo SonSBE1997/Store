@@ -56,7 +56,8 @@
 											</c:otherwise>
 										</c:choose>
 										<a class="text-uppercase primary-btn addCart"
-											href="/Store/shopping-cart/add/${laptop.getId() }">Thêm vào giỏ hàng</a>
+											data-id=${laptop.getId() }
+											data-quantity=${laptop.getQuantity() }>Thêm vào giỏ hàng</a>
 									</div>
 								</div>
 							</div>

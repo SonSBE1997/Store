@@ -7,13 +7,13 @@
 	<div class="container">
 		<div class="row align-items-center justify-content-between d-flex">
 			<div id="logo">
-				<a href="/Store"><img
-					src='<c:url value="/resources/user/img/logo.png" />' alt=""
-					title="" /></a>
+				<a href="/Store" id="home_logo">Sam Store</a>
 			</div>
 			<nav id="nav-menu-container">
 				<ul class="nav-menu">
 					<li class="menu-active"><a href="/Store">Trang chủ</a></li>
+					<li><a href="/Store/category/hot/1">Bán chạy</a></li>
+					<li><a href="/Store/category/discount/1">Giảm giá</a></li>
 					<li class="menu-has-children"><a id="tradeMark" href="#">Thương
 							hiệu</a>
 						<ul>

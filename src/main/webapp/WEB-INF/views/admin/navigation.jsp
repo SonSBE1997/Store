@@ -4,7 +4,7 @@
 	<div class="left_col scroll-view">
 		<div class="navbar nav_title" style="border: 0;">
 			<a href="/Store/admin" class="site_title"><i class="fa fa-home"></i>
-				<span>Store</span></a>
+				<span>Sam Store</span></a>
 		</div>
 
 		<div class="clearfix"></div>
@@ -38,7 +38,8 @@
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
 							<li><a href="/Store/admin/bill/1">Đơn đặt hàng</a></li>
-							<li><a href="/Store/admin/bill/statistic/${now.getYear()+1900 }">Thống
+							<li><a
+								href="/Store/admin/bill/statistic/${now.getYear()+1900 }">Thống
 									kê</a></li>
 						</ul></li>
 				</ul>

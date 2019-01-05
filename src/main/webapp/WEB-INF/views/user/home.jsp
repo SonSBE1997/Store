@@ -11,12 +11,12 @@
 				<div
 					class="row fullscreen d-flex align-items-center justify-content-center"
 					style="height: 657px;">
-					<div class="banner-content col-lg-10">
-						<h5 class="text-white text-uppercase">Now you can feel the Heat</h5>
+					<div class="banner-content col-lg-10" style="margin-top: 200px;">
+						<h5 class="text-white text-warning">Now you can feel the Heat</h5>
 						<h1>
 							Smart New Future				
 						</h1>
-						<a href="#" class="primary-btn text-uppercase">Buy Now</a>
+						<a href="#" class="primary-btn text-danger">Buy Now</a>
 					</div>											
 				</div>
 			</div>
@@ -60,8 +60,9 @@
 										<h6>
 											<fmt:formatNumber type="currency">${laptopHot.get(i).getPrice() }</fmt:formatNumber>
 										</h6>
-										<a class="text-uppercase primary-btn addCart"
-											href="/Store/shopping-cart/add/${laptopHot.get(i).getId() }">Thêm vào giỏ hàng</a>
+										<button class="text-uppercase primary-btn addCart"
+											data-id=${laptopHot.get(i).getId() }
+											data-quantity=${laptopHot.get(i).getQuantity() }>Thêm vào giỏ hàng</button>
 									</div>
 								</div>
 							</div>
@@ -118,7 +119,8 @@
 											</fmt:formatNumber>
 										</h6>
 										<a class="text-uppercase primary-btn addCart"
-											href="/Store/shopping-cart/add/${laptopDiscount.get(i).getId() }">Thêm vào giỏ hàng</a>
+											data-id=${laptopDiscount.get(i).getId() }
+											data-quantity=${laptopDiscount.get(i).getQuantity() }>Thêm vào giỏ hàng</a>
 									</div>
 								</div>
 							</div>
