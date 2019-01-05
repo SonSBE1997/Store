@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.sanero.DAO.ProducerDAO;
+import dev.sanero.dao.ProducerDAO;
 import dev.sanero.entities.Producer;
 
 @Service

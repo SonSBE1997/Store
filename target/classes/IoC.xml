@@ -17,9 +17,9 @@
 		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/store?useUnicode=true&amp;characterEncoding=UTF-8" />
+			value="jdbc:mysql://localhost:3306/store?useUnicode=true&amp;characterEncoding=UTF-8;useSSL=false" />
 		<property name="username" value="root" />
-		<property name="password" value="" />
+		<property name="password" value="123456aA@" />
 	</bean>
 
 	<bean id="sessionFactory"

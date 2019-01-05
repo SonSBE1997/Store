@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.sanero.DAO.BillDAO;
+import dev.sanero.dao.BillDAO;
 import dev.sanero.entities.Order;
 
 @Service

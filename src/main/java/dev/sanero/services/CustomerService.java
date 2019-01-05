@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.sanero.DAO.CustomerDAO;
+import dev.sanero.dao.CustomerDAO;
 import dev.sanero.entities.Customer;
 import dev.sanero.utils.User;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dev.sanero.DAO.LaptopDAO;
+import dev.sanero.dao.LaptopDAO;
 import dev.sanero.entities.Laptop;
 
 @Service

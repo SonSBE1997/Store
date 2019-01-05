@@ -16,7 +16,7 @@
 	<context:component-scan
 		base-package="dev.sanero.controllers"></context:component-scan>
 	<context:component-scan
-		base-package="dev.sanero.DAO"></context:component-scan>
+		base-package="dev.sanero.dao"></context:component-scan>
 	<context:component-scan
 		base-package="dev.sanero.services"></context:component-scan>
 
