@@ -4,11 +4,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:user pageTitle="Bán chạy">
+<t:user pageTitle="Tất cả sản phẩm">
 	<jsp:body>
 		<div class="aboutUs">
 		</div>
 		<div class="main-wrapper">
+				<div class="pull-right mt-30 mr-50">
+					<form id="fSort" action="" method="post"
+					class="form-group col-md-12">
+						<select name="sort" class="form-control" id="iSort">
+							<c:choose>
+								<c:when test='${sort == "ASC"}'>
+									<option value="ASC" selected="selected">Giá tăng dần</option>
+									<option value="DESC">Giá giảm dần</option>
+								</c:when>
+								<c:otherwise>
+									<option value="ASC">Giá tăng dần</option>
+									<option value="DESC" selected="selected">Giá giảm dần</option>
+								</c:otherwise>
+							</c:choose>
+						</select>
+					</form>
+				</div>
 				<!-- Start unique-feature Area -->
 				<section class="about-generic-area section-gap" id="unique">
 					<div class="container">
@@ -28,7 +45,8 @@
 										src='<c:url value="/resources/image/${laptop.getImage() }" />'
 										alt="">
 									<div class="desc">
-										<h4>${laptop.getName() }  
+										<h4>
+											<a href="/Store/laptop/detail/${laptop.getId()}">${laptop.getName() }</a>
 											<c:if test="${laptop.isHot() }">
 												<span><i class="fa fa-star star-icon"></i></span>
 											</c:if>

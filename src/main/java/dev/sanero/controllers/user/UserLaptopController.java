@@ -7,7 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dev.sanero.entities.Laptop;
 import dev.sanero.services.LaptopService;
@@ -27,6 +29,16 @@ public class UserLaptopController {
 	public String index(@PathVariable int page, HttpSession session, ModelMap model) {
 		Common.checkSessionPageUser(session, model, producerService);
 		model.addAttribute("lsLaptop", laptopService.getListLaptopByPage(page, Helper.USER_PAGE_SIZE));
+		model.addAttribute("pageCount", (int) Math.ceil(1.0 * laptopService.getLaptopCount() / Helper.USER_PAGE_SIZE));
+		model.addAttribute("currentPage", page);
+		return "user/laptop/index";
+	}
+
+	@PostMapping("/{page}")
+	public String index(@RequestParam String sort, @PathVariable int page, HttpSession session, ModelMap model) {
+		Common.checkSessionPageUser(session, model, producerService);
+		model.addAttribute("sort", sort);
+		model.addAttribute("lsLaptop", laptopService.getListLaptopByPage(page, Helper.USER_PAGE_SIZE, sort));
 		model.addAttribute("pageCount", (int) Math.ceil(1.0 * laptopService.getLaptopCount() / Helper.USER_PAGE_SIZE));
 		model.addAttribute("currentPage", page);
 		return "user/laptop/index";

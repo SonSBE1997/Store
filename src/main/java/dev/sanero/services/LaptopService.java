@@ -21,6 +21,10 @@ public class LaptopService {
 		return laptopDAO.getListLaptopByPage(page, pageSize);
 	}
 
+	public List<Laptop> getListLaptopByPage(int page, int pageSize, String sort) {
+		return laptopDAO.getListLaptopByPage(page, pageSize, sort);
+	}
+
 	public boolean delete(int id) {
 		return laptopDAO.delete(id);
 	}
@@ -49,6 +53,10 @@ public class LaptopService {
 		return laptopDAO.getListLaptopByProducerIdAndPaging(producerId, page, pageSize);
 	}
 
+	public List<Laptop> getListLaptopByProducerIdAndPaging(int producerId, int page, int pageSize, String sort) {
+		return laptopDAO.getListLaptopByProducerIdAndPaging(producerId, page, pageSize, sort);
+	}
+
 	public long getLaptopCountByProducerId(int producerId) {
 		return laptopDAO.getLaptopCountByProducerId(producerId);
 	}
@@ -61,8 +69,16 @@ public class LaptopService {
 		return laptopDAO.getListLaptopDiscountByPage(page, pageSize);
 	}
 
+	public List<Laptop> getListLaptopDiscountByPage(int page, int pageSize, String sort) {
+		return laptopDAO.getListLaptopDiscountByPage(page, pageSize, sort);
+	}
+
 	public List<Laptop> getListLaptopHotByPage(int page, int pageSize) {
 		return laptopDAO.getListLaptopHotByPage(page, pageSize);
+	}
+
+	public List<Laptop> getListLaptopHotByPage(int page, int pageSize, String sort) {
+		return laptopDAO.getListLaptopHotByPage(page, pageSize, sort);
 	}
 
 	public long getLaptopDiscountCount() {

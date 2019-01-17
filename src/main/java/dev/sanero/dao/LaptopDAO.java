@@ -42,12 +42,41 @@ public class LaptopDAO {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<Laptop> getListLaptopByPage(int page, int pageSize, String sort) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session.createQuery("from laptops order by (price * (100-discount) / 100) " + sort);
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Laptop> getListLaptopByProducerIdAndPaging(int producerId, int page, int pageSize) {
 		List<Laptop> laptops = new ArrayList<Laptop>();
 		Session session = sessionFactory.openSession();
 		Query<Laptop> query = session
 				.createQuery("select l from laptops as l " + "left JOIN fetch l.configuration as c "
 						+ "left JOIN fetch c.producer as p " + "where p.id = :producerId");
+		query.setParameter("producerId", producerId);
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopByProducerIdAndPaging(int producerId, int page, int pageSize, String sort) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session.createQuery("select l from laptops as l "
+				+ "left JOIN fetch l.configuration as c " + "left JOIN fetch c.producer as p "
+				+ "where p.id = :producerId order by (l.price * (100-l.discount) / 100) " + sort);
 		query.setParameter("producerId", producerId);
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
@@ -103,10 +132,24 @@ public class LaptopDAO {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
+	public List<Laptop> getListLaptopHotByPage(int page, int pageSize, String sort) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session
+				.createQuery("from laptops where hot=1 order by (price * (100-discount) / 100) " + sort);
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
 	public List<Laptop> getListLaptopDiscount() {
 		List<Laptop> laptops = new ArrayList<Laptop>();
 		Session session = sessionFactory.openSession();
-		Query<Laptop> query = session.createQuery("from laptops where discount > 0 ORDER BY discount DESC");
+		Query<Laptop> query = session.createQuery("from laptops where discount > 0");
 		laptops = query.getResultList();
 		session.close();
 		return laptops;
@@ -117,7 +160,21 @@ public class LaptopDAO {
 	public List<Laptop> getListLaptopDiscountByPage(int page, int pageSize) {
 		List<Laptop> laptops = new ArrayList<Laptop>();
 		Session session = sessionFactory.openSession();
-		Query<Laptop> query = session.createQuery("from laptops where discount > 0 ORDER BY discount DESC");
+		Query<Laptop> query = session.createQuery("from laptops where discount > 0");
+		query.setFirstResult((page - 1) * pageSize);
+		query.setMaxResults(pageSize);
+		laptops = query.getResultList();
+		session.close();
+		return laptops;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Laptop> getListLaptopDiscountByPage(int page, int pageSize, String sort) {
+		List<Laptop> laptops = new ArrayList<Laptop>();
+		Session session = sessionFactory.openSession();
+		Query<Laptop> query = session
+				.createQuery("from laptops where discount > 0 order by (price * (100-discount) / 100) " + sort);
 		query.setFirstResult((page - 1) * pageSize);
 		query.setMaxResults(pageSize);
 		laptops = query.getResultList();

@@ -75,3 +75,8 @@ for (var i = 0; i < laptops.length; i++) {
 		}
 	});
 }
+
+document.getElementById('iSort').addEventListener('change',function(){
+	console.log("selected");
+	document.getElementById("fSort").submit();
+});

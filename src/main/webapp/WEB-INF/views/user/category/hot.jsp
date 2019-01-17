@@ -9,6 +9,23 @@
 		<div class="aboutUs">
 		</div>
 		<div class="main-wrapper">
+			<div class="pull-right mt-30 mr-50">
+				<form id="fSort" action="" method="post"
+					class="form-group col-md-12">
+					<select name="sort" class="form-control" id="iSort">
+						<c:choose>
+							<c:when test='${sort == "ASC"}'>
+								<option value="ASC" selected="selected">Giá tăng dần</option>
+								<option value="DESC">Giá giảm dần</option>
+							</c:when>
+							<c:otherwise>
+								<option value="ASC">Giá tăng dần</option>
+								<option value="DESC" selected="selected">Giá giảm dần</option>
+							</c:otherwise>
+						</c:choose>
+					</select>
+				</form>
+			</div>
 				<!-- Start unique-feature Area -->
 				<section class="about-generic-area section-gap" id="unique">
 					<div class="container">
@@ -30,11 +47,32 @@
 									<div class="desc">
 										<h4>
 											<a href="/Store/laptop/detail/${laptop.getId()}">${laptop.getName() }</a>
-											<span><i class="fa fa-star"></i></span>
+											<c:if test="${laptop.isHot() }">
+												<span><i class="fa fa-star star-icon"></i></span>
+											</c:if>
 										</h4>
-										<h6>
-											<fmt:formatNumber type="currency">${laptop.getPrice() }</fmt:formatNumber>
-										</h6>
+										<c:choose>
+											<c:when test="${laptop.getDiscount()>0 }">
+												<p class="discount">
+													<fmt:formatNumber type="currency">
+														${laptop.getPrice() }
+														</fmt:formatNumber>
+												</p>
+												<h6>
+													<fmt:formatNumber type="currency">
+													${laptop.getPrice() * (100 - laptop.getDiscount()) / 100 }
+												</fmt:formatNumber>
+												</h6>
+											</c:when>
+											<c:otherwise>
+												<p class="nondiscount"></p>
+												<h6>
+													<fmt:formatNumber type="currency">
+														${laptop.getPrice() }
+													</fmt:formatNumber>
+												</h6>
+											</c:otherwise>
+										</c:choose>
 										<a class="text-uppercase primary-btn addCart"
 											data-id=${laptop.getId() }
 											data-quantity=${laptop.getQuantity() }>Thêm vào giỏ hàng</a>
