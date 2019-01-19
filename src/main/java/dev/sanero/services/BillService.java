@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import dev.sanero.dao.BillDAO;
 import dev.sanero.entities.Order;
+import dev.sanero.entities.OrderDetail;
 
 @Service
 public class BillService {
@@ -48,5 +49,9 @@ public class BillService {
 
 	public boolean insert(Order order) {
 		return billDAO.insert(order);
+	}
+
+	public boolean insertOrderDetail(OrderDetail detail) {
+		return billDAO.insertOrderDetail(detail);
 	}
 }

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import dev.sanero.entities.Order;
+import dev.sanero.entities.OrderDetail;
 
 @Repository
 public class BillDAO {
@@ -122,6 +123,14 @@ public class BillDAO {
 	public boolean insert(Order order) {
 		Session session = sessionFactory.openSession();
 		int count = (Integer) session.save(order);
+		session.close();
+		return count > 0;
+	}
+
+	@Transactional
+	public boolean insertOrderDetail(OrderDetail detail) {
+		Session session = sessionFactory.openSession();
+		int count = (Integer) session.save(detail);
 		session.close();
 		return count > 0;
 	}

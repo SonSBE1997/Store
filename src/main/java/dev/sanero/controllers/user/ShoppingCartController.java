@@ -30,6 +30,7 @@ import dev.sanero.services.BillService;
 import dev.sanero.services.CustomerService;
 import dev.sanero.services.EmployeeService;
 import dev.sanero.services.LaptopService;
+import dev.sanero.services.MailService;
 import dev.sanero.services.ProducerService;
 import dev.sanero.utils.Cart;
 import dev.sanero.utils.Common;
@@ -53,6 +54,9 @@ public class ShoppingCartController {
 
 	@Autowired
 	BillService billService;
+
+	@Autowired
+	MailService mailService;
 
 	@GetMapping
 	public String index(HttpSession session, ModelMap model) {
@@ -190,44 +194,58 @@ public class ShoppingCartController {
 	@PostMapping("/order")
 	public RedirectView order(@ModelAttribute CustomerInfo customer, HttpSession session,
 			RedirectAttributes attributes) {
-		if (session.getAttribute("loginSession") != null) {
-			@SuppressWarnings("unchecked")
-			List<Cart> carts = (List<Cart>) session.getAttribute("shoppingCart");
-			Set<OrderDetail> details = new HashSet<OrderDetail>();
-			String error = "";
-			for (Cart cart : carts) {
-				OrderDetail detail = new OrderDetail();
-				Laptop laptop = laptopService.getLaptopById(cart.getLaptopId());
-				detail.setLaptop(laptop);
-				detail.setQuantity(cart.getQuantity());
-				detail.setPrice(cart.getPrice());
-				detail.setCreated_by(1);
-				detail.setCreated_at(new Timestamp(new Date().getTime()));
-				if (laptop.getQuantity() < cart.getQuantity()) {
-					error += laptop.getName() + " ,";
-					cart.setQuantity(laptop.getQuantity());
-				} else {
-					laptop.setQuantity(laptop.getQuantity() - cart.getQuantity());
-					laptopService.update(laptop);
-				}
-				details.add(detail);
-			}
-			Order order = new Order();
-			order.setAddress(customer.getAddress());
-			order.setLsDetail(details);
-			order.setCreated_at(new Timestamp(new Date().getTime()));
-			order.setDiscount(0);
-			order.setOrderDate(new java.sql.Date(new Date().getTime()));
-			order.setEmployee(employeeService.getEmployeeById(3));
-			order.setCustomer(customerService.getCustomerById(((User) session.getAttribute("loginSession")).getId()));
-			if (billService.insert(order) && error == "") {
-				session.removeAttribute("shoppingCart");
-				attributes.addFlashAttribute("mess", "Đặt hàng thành công");
-			} else {
-				attributes.addFlashAttribute("mess", "Một số sản phẩm không đủ số lượng: " + error);
-			}
-		} else {
+		if (session.getAttribute("loginSession") == null) {
 			attributes.addFlashAttribute("mess", "Bạn phải đăng nhập trước");
+			return new RedirectView("/Store/shopping-cart");
+		}
+
+		User user = (User) session.getAttribute("loginSession");
+
+		@SuppressWarnings("unchecked")
+		List<Cart> carts = (List<Cart>) session.getAttribute("shoppingCart");
+		Set<OrderDetail> details = new HashSet<OrderDetail>();
+		String error = "";
+		for (Cart cart : carts) {
+			OrderDetail detail = new OrderDetail();
+			Laptop laptop = laptopService.getLaptopById(cart.getLaptopId());
+			detail.setLaptop(laptop);
+			detail.setQuantity(cart.getQuantity());
+			detail.setPrice((int) (cart.getQuantity() * laptop.getPrice() * (100 - laptop.getDiscount()) / 100));
+			detail.setCreated_by(user.getId());
+			detail.setCreated_at(new Timestamp(new Date().getTime()));
+			if (laptop.getQuantity() < cart.getQuantity()) {
+				error += laptop.getName() + " ,";
+				cart.setQuantity(laptop.getQuantity());
+			}
+			details.add(detail);
+		}
+		Order order = new Order();
+		order.setAddress(customer.getAddress());
+		order.setLsDetail(details);
+		order.setCreated_at(new Timestamp(new Date().getTime()));
+		order.setCreated_by(user.getId());
+		order.setDiscount(0);
+		order.setOrderDate(new java.sql.Date(new Date().getTime()));
+		order.setEmployee(employeeService.getEmployeeById(3));
+		order.setCustomer(customerService.getCustomerById(user.getId()));
+		if (billService.insert(order) && error == "") {
+			for (Cart cart : carts) {
+				Laptop laptop = laptopService.getLaptopById(cart.getLaptopId());
+				laptop.setQuantity(laptop.getQuantity() - cart.getQuantity());
+				laptopService.update(laptop);
+			}
+
+			for (OrderDetail orderDetail : details) {
+				orderDetail.setOrder(order);
+				billService.insertOrderDetail(orderDetail);
+			}
+
+			mailService.sendMail(customer.getEmail(), mailService.genContentMail(customer, details).toString());
+			session.removeAttribute("shoppingCart");
+			attributes.addFlashAttribute("mess",
+					"Đặt hàng thành công, thông tin đặt hàng đã được gửi vào email của bạn.");
+		} else {
+			attributes.addFlashAttribute("mess", "Một số sản phẩm không đủ số lượng: " + error);
 		}
 		return new RedirectView("/Store/shopping-cart");
 	}

@@ -1,5 +1,7 @@
 package dev.sanero.controllers.admin;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +25,9 @@ public class LoginController {
 	EmployeeService employeeService;
 
 	@GetMapping
-	public String login() {
+	public String login(HttpSession session) {
+		if (session.getAttribute("userSession") != null)
+			return "redirect:/admin";
 		return "admin/login";
 	}
 

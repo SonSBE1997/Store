@@ -110,7 +110,7 @@
 											</div>
 											<input id="address" type="text" name="address"
 											placeholder="Địa chỉ giao hàng"
-											onfocus="this.placeholder = ''"
+											onfocus="this.placeholder = ''" value="Ha Noi"
 											onblur="this.placeholder = 'Address'" required
 											class="single-input"
 											value='<c:if test="${customer!=null }">${customer.getAddress() }</c:if>'>

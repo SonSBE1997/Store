@@ -4,16 +4,30 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity(name = "order_details")
-public class OrderDetail implements Serializable{
+public class OrderDetail implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	// Attribute
 	private int quantity;
 	private int price;
@@ -22,12 +36,10 @@ public class OrderDetail implements Serializable{
 	private Timestamp created_at;
 	private Timestamp updated_at;
 
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
 
-	@Id
 	@ManyToOne
 	@JoinColumn(name = "laptop_id")
 	private Laptop laptop;

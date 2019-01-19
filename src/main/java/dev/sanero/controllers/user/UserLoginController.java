@@ -3,6 +3,8 @@ package dev.sanero.controllers.user;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -27,7 +29,9 @@ public class UserLoginController {
 	CustomerService customerService;
 
 	@GetMapping
-	public String login() {
+	public String login(HttpSession session) {
+		if (session.getAttribute("loginSession") != null)
+			return "redirect:/";
 		return "user/login";
 	}
 
